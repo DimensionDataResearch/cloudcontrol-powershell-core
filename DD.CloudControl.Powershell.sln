@@ -1,0 +1,39 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7500F96C-6193-4442-A0EB-C1A255C306D9}"
+EndProject
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "DD.CloudControl.Powershell", "src\DD.CloudControl.Powershell\DD.CloudControl.Powershell.csproj", "{12DA5F9B-C294-43DE-96E7-06A427040427}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|x64.ActiveCfg = Debug|x64
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|x64.Build.0 = Debug|x64
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|x86.ActiveCfg = Debug|x86
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Debug|x86.Build.0 = Debug|x86
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|x64.ActiveCfg = Release|x64
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|x64.Build.0 = Release|x64
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|x86.ActiveCfg = Release|x86
+		{12DA5F9B-C294-43DE-96E7-06A427040427}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12DA5F9B-C294-43DE-96E7-06A427040427} = {7500F96C-6193-4442-A0EB-C1A255C306D9}
+	EndGlobalSection
+EndGlobal
