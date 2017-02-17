@@ -1,15 +1,15 @@
-using System;
-using System.Management.Automation;
 using System.Collections.Generic;
+using System.Management.Automation;
+using System.Linq;
 
 namespace DD.CloudControl.Powershell.Connections
 {
-    using Client;
+    using Utilities;
 
     /// <summary>
     ///     Cmdlet that creates a new connection to CloudControl.
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, Nouns.Connection)]
+    [Cmdlet(VerbsCommon.New, Nouns.Connection)]
     public class NewCloudControlConnection
         : PSCmdlet
     {
@@ -29,7 +29,7 @@ namespace DD.CloudControl.Powershell.Connections
         /// <summary>
         ///     A name for the new connection.
         /// </summary>
-        [Parameter(HelpMessage = "A name for the new connection")]
+        [Parameter(Mandatory = true, HelpMessage = "A name for the new connection")]
         public string Name { get; set; }
 
         /// <summary>
@@ -57,22 +57,14 @@ namespace DD.CloudControl.Powershell.Connections
         public SwitchParameter Default { get; set; }
 
         /// <summary>
-		///		Asynchronously perform Cmdlet processing.
+		///		Perform Cmdlet processing.
 		/// </summary>
-		/// <param name="cancellationToken">
-		///		A <see cref="CancellationToken"/> that can be used to cancel the asynchronous operation.
-		/// </param>
-		/// <returns>
-		///		A <see cref="Task"/> representing the asynchronous operation.
-		/// </returns>
-        protected override void ProcessRecord()
+		protected override void ProcessRecord()
         {
             WriteVerbose($"Create CloudControl connection '{Name}'...");
 
-            // TODO: Define and implement persistence for connection settings (~/.mcp/connection-settings.json).
-
-            Dictionary<string, CloudControlClient> clients = SessionState.GetCloudControlClients();
-            if (clients.ContainsKey(Name))
+            Dictionary<string, ConnectionSettings> connections = SessionState.LoadConnections();
+            if (connections.ContainsKey(Name))
             {
                 WriteError(
                     Errors.ConnectionExists(Name)
@@ -81,13 +73,31 @@ namespace DD.CloudControl.Powershell.Connections
                 return;
             }
 
-            // TODO: Support PSCredential, too.
-            CloudControlClient client = CloudControlClient.Create(
-                new Uri($"https://api-{Region}.dimensiondata.com/"),
-                userName: User,
-                password: Password
+            ConnectionSettings settings = new ConnectionSettings
+            {
+                Name = Name,
+                Region = Region
+            };
+            if (Credentials != null)
+            {
+                settings.UserName = Credentials.UserName;
+                settings.Password = Credentials.Password.ToInsecureString();
+            }
+            else
+            {
+                settings.UserName = User;
+                settings.Password = Password;
+            }
+            connections.Add(settings.Name, settings);
+
+            // Persist connections, sorted by name.
+            // TODO: Move this somewhere common.
+            List<ConnectionSettings> storeSettings = new List<ConnectionSettings>(
+                connections.Keys.OrderBy(name => name).Select(
+                    name => connections[name]
+                )
             );
-            clients.Add(Name, client);
+            SettingsStore.WriteConnectionSettings(storeSettings);
         }
     }
 }

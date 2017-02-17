@@ -5,6 +5,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
   </ItemGroup>
 
   <ItemGroup>

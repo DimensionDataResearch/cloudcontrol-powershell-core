@@ -33,6 +33,11 @@ namespace DD.CloudControl.Powershell
 		public string DefaultConnectionName { get; set; }
 
         /// <summary>
+        ///     Connection settings by connection name.
+        /// </summary>
+        public Dictionary<string, ConnectionSettings> Connections { get; } = new Dictionary<string, ConnectionSettings>();
+
+        /// <summary>
         ///     Clients by connection name.
         /// </summary>
         public Dictionary<string, CloudControlClient> Clients { get; } = new Dictionary<string, CloudControlClient>();

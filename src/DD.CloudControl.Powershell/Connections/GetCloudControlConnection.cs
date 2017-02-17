@@ -1,6 +1,4 @@
 using System.Management.Automation;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DD.CloudControl.Powershell.Connections
 {
@@ -9,7 +7,7 @@ namespace DD.CloudControl.Powershell.Connections
     /// </summary>
     [Cmdlet(VerbsCommon.Get, Nouns.Connection)]
     public class GetCloudControlConnection
-        : AsyncCmdlet
+        : PSCmdlet
     {
         /// <summary>
         ///     Create a new <see cref="GetCloudControlConnection"/> cmdlet.
@@ -25,25 +23,13 @@ namespace DD.CloudControl.Powershell.Connections
         public string Name { get; set; }
 
         /// <summary>
-		///		Asynchronously perform Cmdlet processing.
+		///		Perform Cmdlet processing.
 		/// </summary>
-		/// <param name="cancellationToken">
-		///		A <see cref="CancellationToken"/> that can be used to cancel the asynchronous operation.
-		/// </param>
-		/// <returns>
-		///		A <see cref="Task"/> representing the asynchronous operation.
-		/// </returns>
-        protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
+        protected override void ProcessRecord()
         {
-            // TODO: Define and implement persistence for connection settings (~/.mcp/connection-settings.json).
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            WriteVerbose("Yielding...");
-
-            await Task.Yield();
-
-            WriteVerbose("Hello from Powershell core!");
+            ConnectionSettings connection;
+            if (SessionState.LoadConnections().TryGetValue(Name, out connection))
+                WriteObject(connection);
         }
     }
 }
