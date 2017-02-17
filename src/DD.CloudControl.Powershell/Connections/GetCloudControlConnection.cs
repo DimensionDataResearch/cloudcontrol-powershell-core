@@ -7,7 +7,7 @@ namespace DD.CloudControl.Powershell.Connections
     /// <summary>
     ///     Cmdlet that retrieves CloudControl connection details.
     /// </summary>
-    [Cmdlet(Nouns.Connection, VerbsCommon.Get)]
+    [Cmdlet(VerbsCommon.Get, Nouns.Connection)]
     public class GetCloudControlConnection
         : AsyncCmdlet
     {
