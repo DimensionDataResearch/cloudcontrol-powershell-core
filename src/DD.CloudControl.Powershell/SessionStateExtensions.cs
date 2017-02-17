@@ -1,24 +1,47 @@
 using System;
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell
 {
+	using Client;
+
 	/// <summary>
 	///		Extension methods for Powershell <see cref="SessionState"/>
 	/// </summary>
 	public static class SessionStateExtensions
 	{
-        /// <summary>
-		///		Get the name of the default DMS connection (if configured) for the current runspace.
+		/// <summary>
+		///		Get a dictionary of <see cref="CloudControlClient"/>s (keyed by connection name) for the current runspace.
 		/// </summary>
 		/// <param name="sessionState">
-		///		The session state from which to retrieve the DMS connection container table.
+		///		The session state from which to retrieve the CloudControl connection container table.
 		/// </param>
 		/// <returns>
-		///		The default connection name, or <c>null</c> if no default DMS connection has been configured for the current runspace.
+		///		The dictionary.
 		/// </returns>
 		/// <exception cref="InvalidOperationException">
-		///		The DMS Powershell provider is not loaded in the current session.
+		///		The CloudControl Powershell provider is not loaded in the current session.
+		/// </exception>
+		public static Dictionary<string, CloudControlClient> GetCloudControlClients(this SessionState sessionState)
+		{
+			if (sessionState == null)
+				throw new ArgumentNullException(nameof(sessionState));
+
+			return sessionState.GetProviderState().Clients;
+		}
+
+        /// <summary>
+		///		Get the name of the default CloudControl connection (if configured) for the current runspace.
+		/// </summary>
+		/// <param name="sessionState">
+		///		The session state from which to retrieve the CloudControl connection container table.
+		/// </param>
+		/// <returns>
+		///		The default connection name, or <c>null</c> if no default CloudControl connection has been configured for the current runspace.
+		/// </returns>
+		/// <exception cref="InvalidOperationException">
+		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
 		public static string GetDefaultCloudControlConnectionName(this SessionState sessionState)
 		{
@@ -29,16 +52,16 @@ namespace DD.CloudControl.Powershell
 		}
 
 		/// <summary>
-		///		Get the name of the default DMS connection (if configured) for the current runspace.
+		///		Get the name of the default CloudControl connection (if configured) for the current runspace.
 		/// </summary>
 		/// <param name="sessionState">
-		///		The session state from which to retrieve the DMS connection container table.
+		///		The session state from which to retrieve the CloudControl connection container table.
 		/// </param>
 		/// <param name="defaultConnectionName">
-		///		The default connection name, or <c>null</c> if there should not be a default DMS connection for the current runspace.
+		///		The default connection name, or <c>null</c> if there should not be a default CloudControl connection for the current runspace.
 		/// </param>
 		/// <exception cref="InvalidOperationException">
-		///		The DMS Powershell provider is not loaded in the current session.
+		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
 		public static void SetDefaultCloudControlConnectionName(this SessionState sessionState, string defaultConnectionName)
 		{

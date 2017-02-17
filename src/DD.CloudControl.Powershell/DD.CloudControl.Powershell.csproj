@@ -7,6 +7,10 @@
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../../lib/cloudcontrol-client-core/src/DD.CloudControl.Client/DD.CloudControl.Client.csproj"/>
+  </ItemGroup>
+
   <!-- Required by the alpha13 build of Powershell Core -->
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="1.6.1"/>

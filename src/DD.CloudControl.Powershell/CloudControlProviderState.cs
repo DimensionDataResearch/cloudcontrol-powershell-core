@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell
 {
+    using Client;
+
     /// <summary>
     ///     State data for the CloudControl Powershell provider.
     /// </summary>
@@ -28,5 +31,10 @@ namespace DD.CloudControl.Powershell
 		///		The name of the default connection if any.
 		/// </summary>
 		public string DefaultConnectionName { get; set; }
+
+        /// <summary>
+        ///     Clients by connection name.
+        /// </summary>
+        public Dictionary<string, CloudControlClient> Clients { get; } = new Dictionary<string, CloudControlClient>();
     }
 }

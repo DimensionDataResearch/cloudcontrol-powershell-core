@@ -1,15 +1,17 @@
+using System;
 using System.Management.Automation;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DD.CloudControl.Powershell.Connections
 {
+    using Client;
+
     /// <summary>
-    ///     Cmdlet that retrieves CloudControl connection details.
+    ///     Cmdlet that creates a new connection to CloudControl.
     /// </summary>
     [Cmdlet(VerbsCommon.Get, Nouns.Connection)]
     public class NewCloudControlConnection
-        : AsyncCmdlet
+        : PSCmdlet
     {
         /// <summary>
         ///     Create a new <see cref="NewCloudControlConnection"/> cmdlet.
@@ -63,17 +65,29 @@ namespace DD.CloudControl.Powershell.Connections
 		/// <returns>
 		///		A <see cref="Task"/> representing the asynchronous operation.
 		/// </returns>
-        protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
+        protected override void ProcessRecord()
         {
-            // TODO: Implement persistence for connection settings (~/.mcp/connection-settings.json).
+            WriteVerbose($"Create CloudControl connection '{Name}'...");
 
-            cancellationToken.ThrowIfCancellationRequested();
+            // TODO: Define and implement persistence for connection settings (~/.mcp/connection-settings.json).
 
-            WriteVerbose("Yielding...");
+            Dictionary<string, CloudControlClient> clients = SessionState.GetCloudControlClients();
+            if (clients.ContainsKey(Name))
+            {
+                WriteError(
+                    Errors.ConnectionExists(Name)
+                );
 
-            await Task.Yield();
+                return;
+            }
 
-            WriteVerbose("Hello from Powershell core!");
+            // TODO: Support PSCredential, too.
+            CloudControlClient client = CloudControlClient.Create(
+                new Uri($"https://api-{Region}.dimensiondata.com/"),
+                userName: User,
+                password: Password
+            );
+            clients.Add(Name, client);
         }
     }
 }

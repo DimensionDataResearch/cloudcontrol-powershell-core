@@ -35,7 +35,7 @@ namespace DD.CloudControl.Powershell.Connections
 		/// </returns>
         protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
         {
-            // TODO: Implement persistence for connection settings (~/.mcp/connection-settings.json).
+            // TODO: Define and implement persistence for connection settings (~/.mcp/connection-settings.json).
 
             cancellationToken.ThrowIfCancellationRequested();
 
