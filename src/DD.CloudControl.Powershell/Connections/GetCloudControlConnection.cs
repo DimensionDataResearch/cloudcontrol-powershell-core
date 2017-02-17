@@ -19,9 +19,9 @@ namespace DD.CloudControl.Powershell.Connections
         }
 
         /// <summary>
-        ///     The name of a specific connecton to retrieve.
+        ///     The name of a specific connection to retrieve.
         /// </summary>
-        [Parameter(HelpMessage = "The name of a specific connecton to retrieve")]
+        [Parameter(HelpMessage = "The name of a specific connection to retrieve")]
         public string Name { get; set; }
 
         /// <summary>
@@ -35,6 +35,8 @@ namespace DD.CloudControl.Powershell.Connections
 		/// </returns>
         protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
         {
+            // TODO: Implement persistence for connection settings (~/.mcp/connection-settings.json).
+
             cancellationToken.ThrowIfCancellationRequested();
 
             WriteVerbose("Yielding...");
