@@ -129,7 +129,8 @@ namespace DD.CloudControl.Powershell
                             protector.Protect(
                                 Encoding.Unicode.GetBytes(connection.Password)
                             )
-                        )
+                        ),
+                        IsDefault = connection.IsDefault
                     }
                 ).ToArray();
             });

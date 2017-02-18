@@ -8,7 +8,7 @@ namespace DD.CloudControl.Powershell.Connections
     ///     Cmdlet that retrieves CloudControl connection details.
     /// </summary>
     [OutputType(typeof(ConnectionSettings))]
-    [Cmdlet(VerbsCommon.Get, Nouns.Connection)]
+    [Cmdlet(VerbsCommon.Get, Nouns.Connection, DefaultParameterSetName = "All")]
     public class GetCloudControlConnection
         : PSCmdlet
     {
@@ -22,7 +22,7 @@ namespace DD.CloudControl.Powershell.Connections
         /// <summary>
         ///     Retrieve all connections.
         /// </summary>
-        [Parameter(ParameterSetName = "All", Mandatory = true, HelpMessage = "Retrieve all connections")]
+        [Parameter(ParameterSetName = "All", HelpMessage = "Retrieve all connections")]
         public SwitchParameter All { get; set; }
 
         /// <summary>
