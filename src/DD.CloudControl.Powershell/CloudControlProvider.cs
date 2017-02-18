@@ -15,9 +15,9 @@ namespace DD.CloudControl.Powershell
         : CmdletProvider
     {
         /// <summary>
-		///		The CloudControl Powershell provider name.
-		/// </summary>
-        public const string ProviderName = "Aperture.DistributedManagement";
+        ///     The CloudControl Powershell provider name.
+        /// </summary>
+        public const string ProviderName = "DimensionData.CloudControl";
 
         /// <summary>
         ///     Create a new CloudControl provider.
@@ -32,21 +32,21 @@ namespace DD.CloudControl.Powershell
         public CloudControlProviderState ProviderState { get; private set; }
 
         /// <summary>
-		///		Start the provider.
-		/// </summary>
-		/// <param name="providerInfo">
-		///		The initial provider information.
-		/// </param>
-		/// <returns>
-		///		DMS provider state.
-		/// </returns>
-		protected override ProviderInfo Start(ProviderInfo providerInfo)
-		{
-			if (providerInfo == null)
-				throw new ArgumentNullException(nameof(providerInfo));
-	
-			if (ProviderState != null)
-				throw new InvalidOperationException("The DMS Powershell provider has already been started.");
+        ///     Start the provider.
+        /// </summary>
+        /// <param name="providerInfo">
+        ///     The initial provider information.
+        /// </param>
+        /// <returns>
+        ///     The CloudControl provider state.
+        /// </returns>
+        protected override ProviderInfo Start(ProviderInfo providerInfo)
+        {
+            if (providerInfo == null)
+                throw new ArgumentNullException(nameof(providerInfo));
+
+            if (ProviderState != null)
+                throw new InvalidOperationException("The CloudControl Powershell provider has already been started.");
 
             ProviderState = new CloudControlProviderState(providerInfo);
 
