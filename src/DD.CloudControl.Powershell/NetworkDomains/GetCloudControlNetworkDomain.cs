@@ -1,5 +1,4 @@
 using System.Management.Automation;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -47,11 +46,12 @@ namespace DD.CloudControl.Powershell.Accounts
         {
             CloudControlClient client = GetClient();
 
+            NetworkDomain networkDomain;
             switch (ParameterSetName)
             {
                 case "By Id":
                 {
-                    NetworkDomain networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
+                    networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
                     if (networkDomain == null)
                     {
                         WriteError(
@@ -65,31 +65,18 @@ namespace DD.CloudControl.Powershell.Accounts
                 }
                 case "By Name":
                 {
-                    // HACKY!
-                    // TODO: Implement GetNetworkDomainByName.
-
-                    Paging paging = new Paging();
-
-                    NetworkDomains networkDomains;
-                    while (true)
+                    networkDomain = await client.GetNetworkDomainByName(Name, DatacenterId);
+                    if (networkDomain == null)
                     {
-                        networkDomains = await client.ListNetworkDomains(DatacenterId, paging, cancellationToken);
-                        if (networkDomains.IsEmpty)
-                            break; // No more pages.
-                        
-                        NetworkDomain matchingNetworkDomain = networkDomains.FirstOrDefault(
-                            networkDomain => networkDomain.Name == Name
+                        WriteError(
+                            Errors.ResourceNotFoundByName<NetworkDomain>(Name, 
+                                message: $"No network domain named '{Name}' was found in datacenter '{DatacenterId}'."
+                            )
                         );
-                        if (matchingNetworkDomain != null)
-                        {
-                            WriteObject(matchingNetworkDomain);
-
-                            return; // We're done.
-                        }
-
-                        paging.Next();
                     }
-
+                    else
+                        WriteObject(networkDomain);
+                    
                     break;
                 }
                 default:
@@ -98,7 +85,7 @@ namespace DD.CloudControl.Powershell.Accounts
                         Errors.UnrecognizedParameterSet(this)
                     );
 
-                    break;
+                    return;
                 }
             }
         }
