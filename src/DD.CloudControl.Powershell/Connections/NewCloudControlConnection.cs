@@ -7,6 +7,7 @@ namespace DD.CloudControl.Powershell.Connections
     /// <summary>
     ///     Cmdlet that creates a new connection to CloudControl.
     /// </summary>
+    [OutputType(typeof(ConnectionSettings))]
     [Cmdlet(VerbsCommon.New, Nouns.Connection)]
     public class NewCloudControlConnection
         : PSCmdlet
@@ -89,7 +90,7 @@ namespace DD.CloudControl.Powershell.Connections
             }
             SessionState.Connections().Add(settings.Name, settings);
 
-            if (Default)
+            if (SetDefault)
                 SessionState.SetDefaultCloudControlConnection(Name);
 
             SessionState.WriteConnections();

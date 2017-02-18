@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 namespace DD.CloudControl.Powershell.Accounts
 {
     using Client;
+    using Client.Models.Directory;
 
     /// <summary>
     ///     Cmdlet that retrieves information about one or more CloudControl accounts.
     /// </summary>
+    [OutputType(typeof(UserAccount))]
     [Cmdlet(VerbsCommon.Get, Nouns.UserAccount)]
     public class GetCloudControlUserAccount
         : AsyncCmdlet

@@ -18,10 +18,12 @@ namespace DD.CloudControl.Powershell.Connections
         {
         }
 
+        // TODO: Accept ConnectionInfo from pipeline (so there are 2 parameter sets - "Name" or "Connection").
+
         /// <summary>
         ///     The name of the connection to close.
         /// </summary>
-        [Parameter(HelpMessage = "The name of the connection to close")]
+        [Parameter(Mandatory = true, HelpMessage = "The name of the connection to close")]
         public string Name { get; set; }
 
         /// <summary>
