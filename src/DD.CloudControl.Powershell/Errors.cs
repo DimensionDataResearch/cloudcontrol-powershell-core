@@ -75,6 +75,66 @@ namespace DD.CloudControl.Powershell
             );
         }
 
+		/// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when a resource was not found by Id.
+        /// </summary>
+        /// <typeparam name="TResource">
+		/// 	The type of resource that was not found.
+        /// </param>
+        /// <param name="resourceId">
+        ///     The Id of the resource that was not found.
+        /// </param>
+		/// <param name="message">
+        ///     An optional (custom) error message.
+        /// </param>
+		/// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord ResourceNotFoundById<TResource>(string resourceId, string message = null)
+        {
+            if (String.IsNullOrWhiteSpace(resourceId))
+                throw new ArgumentException("Resource Id cannot be null, empty, or entirely composed of whitespace.", nameof(resourceId));
+
+			string resourceType = typeof(TResource).Name;
+
+            return new ErrorRecord(
+                new Exception(message ?? $"No {resourceType} was found with Id '{resourceId}'."),
+                errorId: $"CloudControl.{resourceType}.NotFound",
+                errorCategory: ErrorCategory.ObjectNotFound,
+                targetObject: resourceId
+            );
+        }
+
+		/// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when a resource was not found with the specified name.
+        /// </summary>
+        /// <param name="resourceType">
+        ///     The type of resource that was not found.
+        /// </param>
+        /// <param name="resourceName">
+        ///     The name of the resource that was not found.
+        /// </param>
+		/// <param name="message">
+        ///     An optional (custom) error message.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord ResourceNotFoundByName<TResource>(string resourceName, string message = null)
+        {
+			if (String.IsNullOrWhiteSpace(resourceName))
+                throw new ArgumentException("Resource name cannot be null, empty, or entirely composed of whitespace.", nameof(resourceName));
+
+			string resourceType = typeof(TResource).Name;
+
+            return new ErrorRecord(
+                new Exception(message ?? $"No {resourceType} named '{resourceName}' was found."),
+                errorId: $"CloudControl.{resourceType}.NotFound",
+                errorCategory: ErrorCategory.ObjectNotFound,
+                targetObject: resourceName
+            );
+        }
+
         /// <summary>
 		///		Create an <see cref="ErrorRecord"/> for when an unrecognised parameter set is encountered by a Cmdlet.
 		/// </summary>
