@@ -11,13 +11,13 @@ dotnet build lib/cloudcontrol-client-core
 
 dotnet restore
 dotnet build
-dotnet publish
+dotnet publish -c release -o $PWD/bin/release
 ```
 
 Then, in powershell:
 
 ```powershell
-Import-Module './src/DD.CloudControl.Powershell/bin/Debug/netstandard1.6/publish/DD.CloudControl.Powershell.dll'
+Import-Module './bin/release/CloudControl.psd1'
 New-CloudControlConnection -Name 'Australia' -Region 'AU' -UserName 'my_mcp_username' -Password 'my_mcp_password' -SetDefault
 
 Get-CloudControlUserAccount -My
