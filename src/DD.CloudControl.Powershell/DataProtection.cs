@@ -112,11 +112,18 @@ namespace DD.CloudControl.Powershell
             if (protector == null)
                 throw new ArgumentNullException(nameof(protector));
 
-            return Encoding.UTF8.GetString(
-                protector.Unprotect(
-                    Convert.FromBase64String(value)
+            // For some reason, we occasionally get nulls when round-tripping protected data.
+            // TODO: Figure out why.
+
+            string unprotected =
+                Encoding.UTF8.GetString(
+                    protector.Unprotect(
+                        Convert.FromBase64String(value)
+                    )
                 )
-            );
+                .Replace("\0", String.Empty);
+
+            return unprotected;
         }
     }
 }
