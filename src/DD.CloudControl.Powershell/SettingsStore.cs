@@ -80,7 +80,6 @@ namespace DD.CloudControl.Powershell
                     }
                 });
 
-
                 return connections;
             }
         }
@@ -159,8 +158,6 @@ namespace DD.CloudControl.Powershell
             {
                 Formatting = Formatting.Indented
             });
-        }
-
-        
+        }        
     }
 }

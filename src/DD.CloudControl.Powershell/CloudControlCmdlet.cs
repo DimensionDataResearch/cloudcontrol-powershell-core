@@ -53,7 +53,7 @@ namespace DD.CloudControl.Powershell
                 }
 
                 client = CloudControlClient.Create(
-                    new Uri($"https://api-{connection.Region}.dimensiondata.com/"),
+                    new Uri($"https://api-{connection.Region.ToLower()}.dimensiondata.com/"),
                     connection.CreateNetworkCredential()
                 );
                 SessionState.Clients().Add(ConnectionName, client);
