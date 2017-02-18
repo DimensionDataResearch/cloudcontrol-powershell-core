@@ -90,7 +90,7 @@ namespace DD.CloudControl.Powershell
 
             return Convert.ToBase64String(
                 protector.Protect(
-                    Encoding.UTF8.GetBytes(value)
+                    Encoding.Unicode.GetBytes(value)
                 )
             );
         }
@@ -116,7 +116,7 @@ namespace DD.CloudControl.Powershell
             // TODO: Figure out why.
 
             string unprotected =
-                Encoding.UTF8.GetString(
+                Encoding.Unicode.GetString(
                     protector.Unprotect(
                         Convert.FromBase64String(value)
                     )
