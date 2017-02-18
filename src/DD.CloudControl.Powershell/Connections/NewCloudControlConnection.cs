@@ -52,7 +52,7 @@ namespace DD.CloudControl.Powershell.Connections
         ///     Mark the new connection as the default connection.
         /// </summary>
         [Parameter(HelpMessage = "Mark the new connection as the default connection")]
-        public SwitchParameter Default { get; set; }
+        public SwitchParameter SetDefault { get; set; }
 
         /// <summary>
 		///		Perform Cmdlet processing.
