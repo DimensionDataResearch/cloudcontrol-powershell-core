@@ -36,7 +36,7 @@ namespace DD.CloudControl.Powershell.Connections
         protected override void ProcessRecord()
         {
             CloudControlClient client;
-            if (SessionState.GetCloudControlClients().TryGetValue(Name, out client))
+            if (SessionState.Clients().TryGetValue(Name, out client))
             {
                 WriteVerbose($"Closing CloudControl connection '{Name}'...");
                 client.Dispose();

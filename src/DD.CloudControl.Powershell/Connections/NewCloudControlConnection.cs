@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Management.Automation;
-using System.Linq;
 
 namespace DD.CloudControl.Powershell.Connections
 {
@@ -63,8 +61,9 @@ namespace DD.CloudControl.Powershell.Connections
         {
             WriteVerbose($"Create CloudControl connection '{Name}'...");
 
-            Dictionary<string, ConnectionSettings> connections = SessionState.LoadConnections();
-            if (connections.ContainsKey(Name))
+            SessionState.ReadConnections();
+
+            if (SessionState.Connections().ContainsKey(Name))
             {
                 WriteError(
                     Errors.ConnectionExists(Name)
@@ -88,16 +87,12 @@ namespace DD.CloudControl.Powershell.Connections
                 settings.UserName = User;
                 settings.Password = Password;
             }
-            connections.Add(settings.Name, settings);
+            SessionState.Connections().Add(settings.Name, settings);
 
-            // Persist connections, sorted by name.
-            // TODO: Move this somewhere common.
-            List<ConnectionSettings> storeSettings = new List<ConnectionSettings>(
-                connections.Keys.OrderBy(name => name).Select(
-                    name => connections[name]
-                )
-            );
-            SettingsStore.WriteConnectionSettings(storeSettings);
+            if (Default)
+                SessionState.SetDefaultCloudControlConnectionName(Name);
+
+            SessionState.WriteConnections();
         }
     }
 }

@@ -27,8 +27,10 @@ namespace DD.CloudControl.Powershell.Connections
 		/// </summary>
         protected override void ProcessRecord()
         {
+            SessionState.ReadConnections();
+
             ConnectionSettings connection;
-            if (SessionState.LoadConnections().TryGetValue(Name, out connection))
+            if (SessionState.Connections().TryGetValue(Name, out connection))
                 WriteObject(connection);
         }
     }

@@ -31,6 +31,28 @@ namespace DD.CloudControl.Powershell
             );
         }
 
+		/// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when a connection does exist with the specified name.
+        /// </summary>
+        /// <param name="name">
+        ///     The connection name.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord ConnectionDoesNotExist(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Connection name cannot be null, empty, or entirely composed of whitespace.", nameof(name));
+
+            return new ErrorRecord(
+                new Exception($"A connection named '{name}' does not exist."),
+                errorId: "CloudControl.Connection.DoesNotExist",
+                errorCategory: ErrorCategory.ObjectNotFound,
+                targetObject: name
+            );
+        }
+
         /// <summary>
 		///		Create an <see cref="ErrorRecord"/> for when an unrecognised parameter set is encountered by a Cmdlet.
 		/// </summary>

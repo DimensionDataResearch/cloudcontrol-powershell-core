@@ -1,7 +1,8 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Linq;
 
 namespace DD.CloudControl.Powershell
 {
@@ -34,7 +35,13 @@ namespace DD.CloudControl.Powershell
         {
             DirectoryInfo settingsDirectory = SettingsDirectory;
             if (!settingsDirectory.Exists)
-                settingsDirectory.Create(); // TODO: On Windows, consider marking directory as Hidden.
+            {
+                settingsDirectory.Create();
+
+                // On Windows, dotfiles aren't hidden just because they're dotfiles.
+                if (OS.IsWindows)
+                    settingsDirectory.Attributes |= FileAttributes.Hidden;
+            }
 
             return settingsDirectory;
         }
@@ -66,10 +73,29 @@ namespace DD.CloudControl.Powershell
         /// <summary>
         ///     Write connection settings to the connection-settings.json.
         /// </summary>
+        /// <param name="connections">
+        ///     The connection settings.
+        /// </param>
+        public static void WriteConnectionSettings(Dictionary<string, ConnectionSettings> connections)
+        {
+            if (connections == null)
+                throw new ArgumentNullException(nameof(connections));
+
+            // Sort by name before persisting.
+            WriteConnectionSettings(
+                connections.Keys.OrderBy(name => name).Select(
+                    name => connections[name]
+                )
+            );
+        }
+
+        /// <summary>
+        ///     Write connection settings to the connection-settings.json.
+        /// </summary>
         /// <param name="connectionSettings">
         ///     The connection settings.
         /// </param>
-        public static void WriteConnectionSettings(List<ConnectionSettings> connectionSettings)
+        public static void WriteConnectionSettings(IEnumerable<ConnectionSettings> connectionSettings)
         {
             if (connectionSettings == null)
                 throw new ArgumentNullException(nameof(connectionSettings));

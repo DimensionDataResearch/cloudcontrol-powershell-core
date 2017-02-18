@@ -12,18 +12,15 @@ namespace DD.CloudControl.Powershell
 	public static class SessionStateExtensions
 	{
 		/// <summary>
-		///		Load current connection settings for the current runspace.
+		///		Read persisted connection settings for the current runspace.
 		/// </summary>
 		/// <param name="sessionState">
-		///		The session state from which to retrieve the CloudControl connection container table.
+		///		The session state to populaye with persisted connection settings.
 		/// </param>
-		/// <returns>
-		///		A dictionary of connection settings, keyed by connection name.
-		/// </returns>
 		/// <exception cref="InvalidOperationException">
 		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
-		public static Dictionary<string, ConnectionSettings> LoadConnections(this SessionState sessionState)
+		public static void ReadConnections(this SessionState sessionState)
 		{
 			if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
@@ -31,8 +28,22 @@ namespace DD.CloudControl.Powershell
 			Dictionary<string, ConnectionSettings> connections = sessionState.GetProviderState().Connections;
 			foreach (ConnectionSettings connection in SettingsStore.ReadConnectionSettings())
                 connections[connection.Name] = connection;
+		}
 
-			return connections;
+		/// <summary>
+		/// 	Persist connection settings for the current runspace.
+		/// </summary>
+		/// <param name="sessionState">
+		///		The session state containing connection settings to persist.
+		/// </param>
+		public static void WriteConnections(this SessionState sessionState)
+		{
+			if (sessionState == null)
+				throw new ArgumentNullException(nameof(sessionState));
+
+			SettingsStore.WriteConnectionSettings(
+				sessionState.Connections()
+			);
 		}
 
 		/// <summary>
@@ -47,7 +58,7 @@ namespace DD.CloudControl.Powershell
 		/// <exception cref="InvalidOperationException">
 		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
-		public static Dictionary<string, ConnectionSettings> GetConnections(this SessionState sessionState)
+		public static Dictionary<string, ConnectionSettings> Connections(this SessionState sessionState)
 		{
 			if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
@@ -67,7 +78,7 @@ namespace DD.CloudControl.Powershell
 		/// <exception cref="InvalidOperationException">
 		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
-		public static Dictionary<string, CloudControlClient> GetCloudControlClients(this SessionState sessionState)
+		public static Dictionary<string, CloudControlClient> Clients(this SessionState sessionState)
 		{
 			if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
