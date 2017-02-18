@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+	<SelectionSets>
+		<SelectionSet>
+			<Name>CloudControlConnectionSettings</Name>
+			<Types>
+				<TypeName>DD.CloudControl.Powershell.ConnectionSettings</TypeName>
+			</Types>
+		</SelectionSet>
+	</SelectionSets>
+	<ViewDefinitions>
+		<!-- CloudControl Connection Table -->
+		<View>
+			<Name>CloudControlConnectionSettingsTable</Name>
+			<ViewSelectedBy>
+				<TypeName>DD.CloudControl.Powershell.ConnectionSettings</TypeName>
+			</ViewSelectedBy>
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Name</Label>
+						<Width>20</Width>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Region</Label>
+						<Width>6</Width>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>UserName</Label>
+						<Width>20</Width>
+					</TableColumnHeader>
+                    <TableColumnHeader>
+						<Label>Default</Label>
+						<Width>7</Width>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+                        <TableColumnItems>
+							<!-- Name -->
+							<TableColumnItem>
+								<PropertyName>Name</PropertyName>
+							</TableColumnItem>
+							<!-- Region -->
+							<TableColumnItem>
+								<PropertyName>Region</PropertyName>
+							</TableColumnItem>
+							<!-- UserName -->
+							<TableColumnItem>
+								<PropertyName>UserName</PropertyName>
+							</TableColumnItem>
+                            <!-- Default -->
+							<TableColumnItem>
+								<PropertyName>IsDefault</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+		
+		<!-- CloudControl Connection List -->
+		<View>
+			<Name>CloudControlConnectionSettingsList</Name>
+			<ViewSelectedBy>
+				<TypeName>DD.CloudControl.Powershell.ConnectionSettings</TypeName>
+			</ViewSelectedBy>
+			<ListControl>
+				<ListEntries>
+					<ListEntry>
+						<ListItems>
+							<ListItem>
+								<Label>Name</Label>
+								<PropertyName>Name</PropertyName>
+							</ListItem>
+							<ListItem>
+								<Label>Region</Label>
+								<PropertyName>Region</PropertyName>
+							</ListItem>
+							<ListItem>
+								<Label>UserName</Label>
+								<PropertyName>UserName</PropertyName>
+							</ListItem>
+							<ListItem>
+								<Label>Default Connection</Label>
+								<PropertyName>IsDefault</PropertyName>
+							</ListItem>
+						</ListItems>
+					</ListEntry>
+				</ListEntries>
+			</ListControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>
