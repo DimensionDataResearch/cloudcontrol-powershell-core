@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace DD.CloudControl.Powershell
 {
@@ -64,9 +65,23 @@ namespace DD.CloudControl.Powershell
             {
                 JsonSerializer serializer = CreateStoreSerializer();
                 
-                return serializer.Deserialize<List<ConnectionSettings>>(
-                    new JsonTextReader(settingsReader)
+                List<ConnectionSettings> connections = serializer.Deserialize<List<ConnectionSettings>>(
+                    reader: new JsonTextReader(settingsReader)
                 );
+
+                DataProtection.Use(protector =>
+                {
+                    foreach (ConnectionSettings connection in connections)
+                    {
+                        if (String.IsNullOrWhiteSpace(connection.Password))
+                            continue;
+
+                        connection.Password = protector.Unprotect(connection.Password);
+                    }
+                });
+
+
+                return connections;
             }
         }
 
@@ -102,13 +117,30 @@ namespace DD.CloudControl.Powershell
 
             EnsureSettingsDirectory();
 
+            ConnectionSettings[] connections = DataProtection.Use(protector =>
+            {
+                return connectionSettings.Select(
+                    connection => new ConnectionSettings
+                    {
+                        Name = connection.Name,
+                        Region = connection.Region,
+                        UserName = connection.UserName,
+                        Password = Convert.ToBase64String(
+                            protector.Protect(
+                                Encoding.Unicode.GetBytes(connection.Password)
+                            )
+                        )
+                    }
+                ).ToArray();
+            });
+
             if (ConnectionSettingsFile.Exists)
                 ConnectionSettingsFile.Delete();
 
             using (TextWriter settingsWriter = ConnectionSettingsFile.CreateText())
             {
                 JsonSerializer serializer = CreateStoreSerializer();
-                serializer.Serialize(settingsWriter, connectionSettings);
+                serializer.Serialize(settingsWriter, connections);
                 
                 settingsWriter.Flush();
             }
@@ -127,5 +159,7 @@ namespace DD.CloudControl.Powershell
                 Formatting = Formatting.Indented
             });
         }
+
+        
     }
 }
