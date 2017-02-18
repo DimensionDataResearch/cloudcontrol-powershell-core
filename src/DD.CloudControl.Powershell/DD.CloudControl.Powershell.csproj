@@ -7,7 +7,6 @@
     <PackageReference Include="HTTPlease" Version="1.0.0-beta3-0201" CopyLocal="true" />
     <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta3-0201"  CopyLocal="true" />
     <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta3-0201" CopyLocal="true" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
 
     <!-- Data protection facilities -->
@@ -19,8 +18,10 @@
     <ProjectReference Include="../../lib/cloudcontrol-client-core/src/DD.CloudControl.Client/DD.CloudControl.Client.csproj"/>
   </ItemGroup>
 
-  <!-- Required by the alpha13 build of Powershell Core -->
   <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
+
+    <!-- Required by the alpha13 build of Powershell Core -->
     <PackageReference Include="NETStandard.Library" Version="1.6.1"/>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
   </ItemGroup>
