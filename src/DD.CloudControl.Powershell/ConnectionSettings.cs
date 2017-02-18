@@ -33,6 +33,12 @@ namespace DD.CloudControl.Powershell
         public string Password { get; set; }
 
         /// <summary>
+        ///     Is this connection the default connection?
+        /// </summary>
+        [JsonProperty("isDefault")]
+        public bool IsDefault { get; set; }
+
+        /// <summary>
         ///     Create a <see cref="NetworkCredential"/> representing the connection settings.
         /// </summary>
         /// <returns>

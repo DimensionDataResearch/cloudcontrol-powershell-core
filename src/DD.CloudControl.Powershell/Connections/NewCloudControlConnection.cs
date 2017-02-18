@@ -90,7 +90,7 @@ namespace DD.CloudControl.Powershell.Connections
             SessionState.Connections().Add(settings.Name, settings);
 
             if (Default)
-                SessionState.SetDefaultCloudControlConnectionName(Name);
+                SessionState.SetDefaultCloudControlConnection(Name);
 
             SessionState.WriteConnections();
         }

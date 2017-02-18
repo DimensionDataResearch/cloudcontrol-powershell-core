@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell
 {
-	using Client;
+    using Client;
 
 	/// <summary>
 	///		Extension methods for Powershell <see cref="SessionState"/>
@@ -86,7 +87,7 @@ namespace DD.CloudControl.Powershell
 			return sessionState.GetProviderState().Clients;
 		}
 
-        /// <summary>
+		/// <summary>
 		///		Get the name of the default CloudControl connection (if configured) for the current runspace.
 		/// </summary>
 		/// <param name="sessionState">
@@ -103,7 +104,37 @@ namespace DD.CloudControl.Powershell
 			if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
 
-			return sessionState.GetProviderState().DefaultConnectionName;
+			return sessionState.GetProviderState().Connections.Values
+				.Where(
+					connection => connection.IsDefault
+				)
+				.Select(
+					connection => connection.Name
+				)
+				.FirstOrDefault();
+		}
+
+        /// <summary>
+		///		Get the default CloudControl connection (if configured) for the current runspace.
+		/// </summary>
+		/// <param name="sessionState">
+		///		The session state from which to retrieve the CloudControl connection container table.
+		/// </param>
+		/// <returns>
+		///		The default connection, or <c>null</c> if no default CloudControl connection has been configured for the current runspace.
+		/// </returns>
+		/// <exception cref="InvalidOperationException">
+		///		The CloudControl Powershell provider is not loaded in the current session.
+		/// </exception>
+		public static ConnectionSettings GetDefaultCloudControlConnection(this SessionState sessionState)
+		{
+			if (sessionState == null)
+				throw new ArgumentNullException(nameof(sessionState));
+
+			return sessionState.GetProviderState().Connections.Values
+				.FirstOrDefault(
+					connection => connection.IsDefault
+				);
 		}
 
 		/// <summary>
@@ -118,12 +149,13 @@ namespace DD.CloudControl.Powershell
 		/// <exception cref="InvalidOperationException">
 		///		The CloudControl Powershell provider is not loaded in the current session.
 		/// </exception>
-		public static void SetDefaultCloudControlConnectionName(this SessionState sessionState, string defaultConnectionName)
+		public static void SetDefaultCloudControlConnection(this SessionState sessionState, string defaultConnectionName)
 		{
 			if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
 
-			sessionState.GetProviderState().DefaultConnectionName = defaultConnectionName;
+			foreach (ConnectionSettings connection in sessionState.GetProviderState().Connections.Values)
+				connection.IsDefault = (connection.Name == defaultConnectionName);
 		}
 
         /// <summary>

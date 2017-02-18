@@ -32,6 +32,28 @@ namespace DD.CloudControl.Powershell
         }
 
 		/// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when the ConnectionName parameter was not supplied to a Cmdlet and no default connection has been configured.
+        /// </summary>
+        /// <param name="cmdlet">
+        ///     The calling Cmdlet.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord ConnectionRequired(PSCmdlet cmdlet)
+        {
+			if (cmdlet == null)
+				throw new ArgumentNullException(nameof(cmdlet));
+
+            return new ErrorRecord(
+                new Exception("The ConnectionName parameter was not specified and no default connection has been configured."),
+                errorId: "CloudControl.Connection.Required",
+                errorCategory: ErrorCategory.InvalidArgument,
+                targetObject: cmdlet.MyInvocation.MyCommand.Name
+            );
+        }
+
+		/// <summary>
         ///     Create an <see cref="ErrorRecord"/> for when a connection does exist with the specified name.
         /// </summary>
         /// <param name="name">

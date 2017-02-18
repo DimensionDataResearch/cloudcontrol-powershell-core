@@ -4,6 +4,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HTTPlease" Version="1.0.0-beta3-0201" CopyLocal="true" />
+    <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta3-0201"  CopyLocal="true" />
+    <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta3-0201" CopyLocal="true" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
   </ItemGroup>
