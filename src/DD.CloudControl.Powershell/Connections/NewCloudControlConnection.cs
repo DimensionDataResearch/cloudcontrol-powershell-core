@@ -40,8 +40,9 @@ namespace DD.CloudControl.Powershell.Connections
         /// <summary>
         ///     The username used to authenticate to CloudControl.
         /// </summary>
+        [Alias("User")]
         [Parameter(ParameterSetName = "Username and password", Mandatory = true, HelpMessage = "The username used to authenticate to CloudControl")]
-        public string User { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         ///     The password used to authenticate to CloudControl.
@@ -85,7 +86,7 @@ namespace DD.CloudControl.Powershell.Connections
             }
             else
             {
-                settings.UserName = User;
+                settings.UserName = UserName;
                 settings.Password = Password;
             }
             SessionState.Connections().Add(settings.Name, settings);
