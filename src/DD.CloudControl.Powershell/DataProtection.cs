@@ -77,22 +77,22 @@ namespace DD.CloudControl.Powershell
         /// <param name="protector">
         ///     The data protector.
         /// </param>
-        /// <param name="value">
+        /// <param name="unprotectedValue">
         ///     The value to protect.
         /// </param>
         /// <returns>
         ///     The protected value (Base64-encoded).
         /// </returns>
-        public static string Protect(this IDataProtector protector, string value)
+        public static string Protect(this IDataProtector protector, string unprotectedValue)
         {
             if (protector == null)
                 throw new ArgumentNullException(nameof(protector));
 
-            return Convert.ToBase64String(
-                protector.Protect(
-                    Encoding.Unicode.GetBytes(value)
-                )
-            );
+            byte[] unprotectedData = Encoding.Unicode.GetBytes(unprotectedValue);
+            byte[] protectedData = protector.Protect(unprotectedData);
+            string protectedValue = Encoding.Unicode.GetString(protectedData);
+
+            return protectedValue;
         }
 
         /// <summary>
@@ -101,29 +101,22 @@ namespace DD.CloudControl.Powershell
         /// <param name="protector">
         ///     The data protector.
         /// </param>
-        /// <param name="value">
+        /// <param name="protectedValue">
         ///     The value to unprotect (Base64-encoded).
         /// </param>
         /// <returns>
         ///     The unprotected value.
         /// </returns>
-        public static string Unprotect(this IDataProtector protector, string value)
+        public static string Unprotect(this IDataProtector protector, string protectedValue)
         {
             if (protector == null)
                 throw new ArgumentNullException(nameof(protector));
 
-            // For some reason, we occasionally get nulls when round-tripping protected data.
-            // TODO: Figure out why.
+            byte[] protectedData = Convert.FromBase64String(protectedValue);
+            byte[] unprotectedData = protector.Unprotect(protectedData);
+            string unprotectedValue = Encoding.Unicode.GetString(unprotectedData);
 
-            string unprotected =
-                Encoding.Unicode.GetString(
-                    protector.Unprotect(
-                        Convert.FromBase64String(value)
-                    )
-                )
-                .Replace("\0", String.Empty);
-
-            return unprotected;
+            return unprotectedValue;
         }
     }
 }
