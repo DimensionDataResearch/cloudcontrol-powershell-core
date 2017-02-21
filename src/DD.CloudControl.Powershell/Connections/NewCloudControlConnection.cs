@@ -1,3 +1,4 @@
+using PSReptile;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell.Connections
@@ -9,6 +10,7 @@ namespace DD.CloudControl.Powershell.Connections
     /// </summary>
     [OutputType(typeof(ConnectionSettings))]
     [Cmdlet(VerbsCommon.New, Nouns.Connection)]
+    [CmdletSynopsis("Creates a new connection to CloudControl")]
     public class NewCloudControlConnection
         : PSCmdlet
     {

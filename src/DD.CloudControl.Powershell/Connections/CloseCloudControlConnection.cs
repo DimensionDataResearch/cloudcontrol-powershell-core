@@ -1,3 +1,4 @@
+using PSReptile;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell.Connections
@@ -8,6 +9,7 @@ namespace DD.CloudControl.Powershell.Connections
     ///     Cmdlet that closes a connection to CloudControl.
     /// </summary>
     [Cmdlet(VerbsCommon.Close, Nouns.Connection)]
+    [CmdletSynopsis("Closes (but does not remove) a connection to CloudControl")]
     public class CloseCloudControlConnection
         : PSCmdlet
     {

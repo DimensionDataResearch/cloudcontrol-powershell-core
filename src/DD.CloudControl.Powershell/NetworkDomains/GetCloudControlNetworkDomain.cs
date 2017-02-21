@@ -1,3 +1,4 @@
+using PSReptile;
 using System;
 using System.Management.Automation;
 using System.Threading;
@@ -9,10 +10,14 @@ namespace DD.CloudControl.Powershell.Accounts
     using Client.Models.Network;
 
     /// <summary>
-    ///     Cmdlet that retrieves information about one or more CloudControl network domains.
+    ///     Cmdlet that retrieves information about one or more network domains.
     /// </summary>
     [OutputType(typeof(NetworkDomain))]
     [Cmdlet(VerbsCommon.Get, Nouns.NetworkDomain, SupportsPaging = true)]
+    [CmdletSynopsis("Retrieves information about one or more network domains")]
+    [CmdletDescription(@"
+        A network domain is the top-level container for resources in CloudControl.
+    ")]
     public class GetCloudControlNetworkDomain
         : CloudControlCmdlet
     {

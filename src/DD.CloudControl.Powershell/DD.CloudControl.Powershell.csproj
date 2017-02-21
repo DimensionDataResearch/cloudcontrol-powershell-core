@@ -9,10 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HTTPlease" Version="1.0.0-beta3-0201" CopyLocal="true" />
-    <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta3-0201"  CopyLocal="true" />
-    <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta3-0201" CopyLocal="true" />
+    <PackageReference Include="HTTPlease" Version="1.0.0-beta3-0201" />
+    <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta3-0201" />
+    <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta3-0201" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
+
+    <PackageReference Include="PSReptile" Version="0.1.0-alpha2"/>
 
     <!-- Data protection facilities -->
     <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="1.1.0"/>    

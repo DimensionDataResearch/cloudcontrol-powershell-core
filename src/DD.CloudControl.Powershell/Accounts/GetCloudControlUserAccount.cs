@@ -1,3 +1,4 @@
+using PSReptile;
 using System.Management.Automation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,10 +9,11 @@ namespace DD.CloudControl.Powershell.Accounts
     using Client.Models.Directory;
 
     /// <summary>
-    ///     Cmdlet that retrieves information about one or more CloudControl accounts.
+    ///     Cmdlet that retrieves information about one or more user accounts.
     /// </summary>
     [OutputType(typeof(UserAccount))]
     [Cmdlet(VerbsCommon.Get, Nouns.UserAccount)]
+    [CmdletSynopsis("Retrieves information about one or more user accounts")]
     public class GetCloudControlUserAccount
         : CloudControlCmdlet
     {

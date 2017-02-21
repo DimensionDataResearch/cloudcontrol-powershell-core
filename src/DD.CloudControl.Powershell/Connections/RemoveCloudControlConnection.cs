@@ -1,3 +1,4 @@
+using PSReptile;
 using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell.Connections
@@ -5,9 +6,10 @@ namespace DD.CloudControl.Powershell.Connections
     using Client;
 
     /// <summary>
-    ///     Cmdlet that removes a connection to CloudControl.
+    ///     Cmdlet that removes a CloudControl connection.
     /// </summary>
     [Cmdlet(VerbsCommon.Remove, Nouns.Connection)]
+    [CmdletSynopsis("Removes a CloudControl connection")]
     public class RemoveCloudControlConnection
         : PSCmdlet
     {

@@ -1,3 +1,4 @@
+using PSReptile;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
@@ -9,6 +10,7 @@ namespace DD.CloudControl.Powershell.Connections
     /// </summary>
     [OutputType(typeof(ConnectionSettings))]
     [Cmdlet(VerbsCommon.Get, Nouns.Connection, DefaultParameterSetName = "All")]
+    [CmdletSynopsis("Retrieves information about one or more CloudControl connections")]
     public class GetCloudControlConnection
         : PSCmdlet
     {
