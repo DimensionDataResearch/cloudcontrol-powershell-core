@@ -6,6 +6,7 @@
   <ItemGroup>
     <Content Include="CloudControl.psd1" CopyToPublishDirectory="Always" />
     <Content Include="DD.CloudControl.Powershell.format.ps1xml" CopyToPublishDirectory="Always" />
+    <Content Include="DD.CloudControl.Powershell.dll-Help.xml" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

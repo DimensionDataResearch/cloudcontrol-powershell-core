@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-16"?>
+<helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Close-CloudControlConnection</command:name>
+      <maml:description>
+        <maml:para>Closes (but does not remove) a connection to CloudControl</maml:para>
+      </maml:description>
+      <command:verb>Close</command:verb>
+      <command:noun>CloudControlConnection</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para />
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Close-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of the connection to close</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the connection to close</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-CloudControlConnection</command:name>
+      <maml:description>
+        <maml:para>Retrieves information about one or more CloudControl connections</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>CloudControlConnection</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para />
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlConnection</maml:name>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>All</maml:name>
+          <maml:description>
+            <maml:para>Retrieve all connections</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of a specific connection to retrieve</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>All</maml:name>
+        <maml:description>
+          <maml:para>Retrieve all connections</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of a specific connection to retrieve</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>New-CloudControlConnection</command:name>
+      <maml:description>
+        <maml:para>Creates a new connection to CloudControl</maml:para>
+      </maml:description>
+      <command:verb>New</command:verb>
+      <command:noun>CloudControlConnection</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para />
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Region</maml:name>
+          <maml:description>
+            <maml:para>The Id of the target MCP region (e.g. AU9)</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>A name for the new connection</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>SetDefault</maml:name>
+          <maml:description>
+            <maml:para>Mark the new connection as the default connection</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>New-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Credentials</maml:name>
+          <maml:description>
+            <maml:para>The credentials used to authenticate to CloudControl</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">System.Management.Automation.PSCredential</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>New-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>UserName</maml:name>
+          <maml:description>
+            <maml:para>The username used to authenticate to CloudControl</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Password</maml:name>
+          <maml:description>
+            <maml:para>The password used to authenticate to CloudControl</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Region</maml:name>
+        <maml:description>
+          <maml:para>The Id of the target MCP region (e.g. AU9)</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>A name for the new connection</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Credentials</maml:name>
+        <maml:description>
+          <maml:para>The credentials used to authenticate to CloudControl</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">System.Management.Automation.PSCredential</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>UserName</maml:name>
+        <maml:description>
+          <maml:para>The username used to authenticate to CloudControl</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Password</maml:name>
+        <maml:description>
+          <maml:para>The password used to authenticate to CloudControl</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>SetDefault</maml:name>
+        <maml:description>
+          <maml:para>Mark the new connection as the default connection</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Remove-CloudControlConnection</command:name>
+      <maml:description>
+        <maml:para>Removes a CloudControl connection</maml:para>
+      </maml:description>
+      <command:verb>Remove</command:verb>
+      <command:noun>CloudControlConnection</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para />
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Remove-CloudControlConnection</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of the connection to remove</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the connection to remove</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-CloudControlUserAccount</command:name>
+      <maml:description>
+        <maml:para>Retrieves information about one or more user accounts</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>CloudControlUserAccount</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para />
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlUserAccount</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>My</maml:name>
+          <maml:description>
+            <maml:para />
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>ConnectionName</maml:name>
+          <maml:description>
+            <maml:para>The name of the CloudControl connection to use</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>My</maml:name>
+        <maml:description>
+          <maml:para />
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>ConnectionName</maml:name>
+        <maml:description>
+          <maml:para>The name of the CloudControl connection to use</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-CloudControlNetworkDomain</command:name>
+      <maml:description>
+        <maml:para>Retrieves information about one or more network domains</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>CloudControlNetworkDomain</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>A network domain is the top-level container for resources in CloudControl.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>ConnectionName</maml:name>
+          <maml:description>
+            <maml:para>The name of the CloudControl connection to use</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>All</maml:name>
+          <maml:description>
+            <maml:para>Retrieve all network domains in a datacenter</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>DatacenterId</maml:name>
+          <maml:description>
+            <maml:para>The Id of the target datacenter</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>The Id of the network domain to retrieve</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name the network domain to retrieve</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>All</maml:name>
+        <maml:description>
+          <maml:para>Retrieve all network domains in a datacenter</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>The Id of the network domain to retrieve</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>DatacenterId</maml:name>
+        <maml:description>
+          <maml:para>The Id of the target datacenter</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name the network domain to retrieve</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>ConnectionName</maml:name>
+        <maml:description>
+          <maml:para>The name of the CloudControl connection to use</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+</helpItems>
