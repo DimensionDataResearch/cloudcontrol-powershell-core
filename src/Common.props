@@ -1,0 +1,14 @@
+<Project>
+    <!-- Package metadata -->
+    <PropertyGroup>
+        <Authors>tintoy</Authors>
+        <PackageProjectUrl>https://github.com/DimensionDataResearch/cloudcontrol-powershell-core</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/DimensionDataResearch/cloudcontrol-powershell-core/master/LICENSE</PackageLicenseUrl>
+
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/DimensionDataResearch/cloudcontrol-powershell-core</RepositoryUrl>
+    </PropertyGroup>
+
+    <!-- Global version info -->
+    <Import Project="../VersionInfo.props"/>
+</Project>
