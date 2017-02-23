@@ -11,18 +11,23 @@ namespace DD.CloudControl.Powershell
         const string Prefix = "CloudControl";
     
         /// <summary>
-        ///     The "CloudControlConnection" noun.
+        ///     A connection to CloudControl.
         /// </summary>
         public const string Connection = Prefix + "Connection";
 
         /// <summary>
-        ///     The "CloudControlUserAccount" noun.
+        ///     A user account.
         /// </summary>
         public const string UserAccount = Prefix + "UserAccount";
 
         /// <summary>
-        ///     The "CloudControlNetworkDomain" noun.
+        ///     A network domain.
         /// </summary>
         public const string NetworkDomain = Prefix + "NetworkDomain";
+
+        /// <summary>
+        ///     A resource's state.
+        /// </summary>
+        public const string ResourceState = Prefix + "ResourceState";
     }
 }
