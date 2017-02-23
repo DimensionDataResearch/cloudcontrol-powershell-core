@@ -4,7 +4,7 @@ using System.Management.Automation;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DD.CloudControl.Powershell.Accounts
+namespace DD.CloudControl.Powershell.NetworkDomains
 {
     using Client;
     using Client.Models.Network;
@@ -30,9 +30,8 @@ namespace DD.CloudControl.Powershell.Accounts
         /// <summary>
         ///     The Id of the network domain to retrieve.
         /// </summary>
-        [ValidateNotNullOrEmpty]
         [Parameter(ParameterSetName = "By Id", Mandatory = true, HelpMessage = "The Id of the network domain to retrieve")]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         ///     The Id of the target datacenter.

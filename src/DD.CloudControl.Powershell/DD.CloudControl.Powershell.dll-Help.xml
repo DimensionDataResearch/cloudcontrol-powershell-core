@@ -1,5 +1,313 @@
-<?xml version="1.0" encoding="utf-16"?>
+<?xml version="1.0" encoding="utf-8"?>
 <helpItems xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" schema="maml" xmlns="http://msh">
+  <command:command>
+    <command:details>
+      <command:name>Edit-CloudControlNetworkDomain</command:name>
+      <maml:description>
+        <maml:para>Updates an existing network domain</maml:para>
+      </maml:description>
+      <command:verb>Edit</command:verb>
+      <command:noun>CloudControlNetworkDomain</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>A network domain is the top-level container for resources in CloudControl.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Edit-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The new name for the network domain</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Description</maml:name>
+          <maml:description>
+            <maml:para>The new description for the network domain</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Type</maml:name>
+          <maml:description>
+            <maml:para>The new type for the network domain</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomainType</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>ConnectionName</maml:name>
+          <maml:description>
+            <maml:para>The name of the CloudControl connection to use</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Edit-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>The Id of the network domain to update.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Edit-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>NetworkDomain</maml:name>
+          <maml:description>
+            <maml:para>The network domain to update</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomain</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>NetworkDomain</maml:name>
+        <maml:description>
+          <maml:para>The network domain to update</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomain</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>The Id of the network domain to update.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The new name for the network domain</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Description</maml:name>
+        <maml:description>
+          <maml:para>The new description for the network domain</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Type</maml:name>
+        <maml:description>
+          <maml:para>The new type for the network domain</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomainType</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>ConnectionName</maml:name>
+        <maml:description>
+          <maml:para>The name of the CloudControl connection to use</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>Get-CloudControlNetworkDomain</command:name>
+      <maml:description>
+        <maml:para>Retrieves information about one or more network domains</maml:para>
+      </maml:description>
+      <command:verb>Get</command:verb>
+      <command:noun>CloudControlNetworkDomain</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>A network domain is the top-level container for resources in CloudControl.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>ConnectionName</maml:name>
+          <maml:description>
+            <maml:para>The name of the CloudControl connection to use</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>All</maml:name>
+          <maml:description>
+            <maml:para>Retrieve all network domains in a datacenter</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>DatacenterId</maml:name>
+          <maml:description>
+            <maml:para>The Id of the target datacenter</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>The Id of the network domain to retrieve</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name the network domain to retrieve</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>All</maml:name>
+        <maml:description>
+          <maml:para>Retrieve all network domains in a datacenter</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>The Id of the network domain to retrieve</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>DatacenterId</maml:name>
+        <maml:description>
+          <maml:para>The Id of the target datacenter</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name the network domain to retrieve</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>ConnectionName</maml:name>
+        <maml:description>
+          <maml:para>The name of the CloudControl connection to use</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
+  <command:command>
+    <command:details>
+      <command:name>New-CloudControlNetworkDomain</command:name>
+      <maml:description>
+        <maml:para>Creates a new network domain</maml:para>
+      </maml:description>
+      <command:verb>New</command:verb>
+      <command:noun>CloudControlNetworkDomain</command:noun>
+    </command:details>
+    <maml:description>
+      <maml:para>A network domain is the top-level container for resources in CloudControl.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-CloudControlNetworkDomain</maml:name>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>DatacenterId</maml:name>
+          <maml:description>
+            <maml:para>The Id of the datacenter where the network domain will be created</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>A name for the new network domain</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Description</maml:name>
+          <maml:description>
+            <maml:para>A description for the new network domain</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Type</maml:name>
+          <maml:description>
+            <maml:para>The type of network domain to create</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomainType</command:parameterValue>
+        </command:parameter>
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>ConnectionName</maml:name>
+          <maml:description>
+            <maml:para>The name of the CloudControl connection to use</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>DatacenterId</maml:name>
+        <maml:description>
+          <maml:para>The Id of the datacenter where the network domain will be created</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>A name for the new network domain</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Description</maml:name>
+        <maml:description>
+          <maml:para>A description for the new network domain</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Type</maml:name>
+        <maml:description>
+          <maml:para>The type of network domain to create</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">DD.CloudControl.Client.Models.Network.NetworkDomainType</command:parameterValue>
+      </command:parameter>
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>ConnectionName</maml:name>
+        <maml:description>
+          <maml:para>The name of the CloudControl connection to use</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <command:examples />
+  </command:command>
   <command:command>
     <command:details>
       <command:name>Close-CloudControlConnection</command:name>
@@ -279,108 +587,6 @@
           <maml:para />
         </maml:description>
         <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
-      </command:parameter>
-      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
-        <maml:name>ConnectionName</maml:name>
-        <maml:description>
-          <maml:para>The name of the CloudControl connection to use</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
-    <command:examples />
-  </command:command>
-  <command:command>
-    <command:details>
-      <command:name>Get-CloudControlNetworkDomain</command:name>
-      <maml:description>
-        <maml:para>Retrieves information about one or more network domains</maml:para>
-      </maml:description>
-      <command:verb>Get</command:verb>
-      <command:noun>CloudControlNetworkDomain</command:noun>
-    </command:details>
-    <maml:description>
-      <maml:para>A network domain is the top-level container for resources in CloudControl.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Get-CloudControlNetworkDomain</maml:name>
-        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
-          <maml:name>ConnectionName</maml:name>
-          <maml:description>
-            <maml:para>The name of the CloudControl connection to use</maml:para>
-          </maml:description>
-          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Get-CloudControlNetworkDomain</maml:name>
-        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-          <maml:name>All</maml:name>
-          <maml:description>
-            <maml:para>Retrieve all network domains in a datacenter</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
-        </command:parameter>
-        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-          <maml:name>DatacenterId</maml:name>
-          <maml:description>
-            <maml:para>The Id of the target datacenter</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Get-CloudControlNetworkDomain</maml:name>
-        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-          <maml:name>Id</maml:name>
-          <maml:description>
-            <maml:para>The Id of the network domain to retrieve</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Get-CloudControlNetworkDomain</maml:name>
-        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-          <maml:name>Name</maml:name>
-          <maml:description>
-            <maml:para>The name the network domain to retrieve</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-        <maml:name>All</maml:name>
-        <maml:description>
-          <maml:para>Retrieve all network domains in a datacenter</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">System.Management.Automation.SwitchParameter</command:parameterValue>
-      </command:parameter>
-      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-        <maml:name>Id</maml:name>
-        <maml:description>
-          <maml:para>The Id of the network domain to retrieve</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-      </command:parameter>
-      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-        <maml:name>DatacenterId</maml:name>
-        <maml:description>
-          <maml:para>The Id of the target datacenter</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-      </command:parameter>
-      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
-        <maml:name>Name</maml:name>
-        <maml:description>
-          <maml:para>The name the network domain to retrieve</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
       </command:parameter>
       <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
         <maml:name>ConnectionName</maml:name>

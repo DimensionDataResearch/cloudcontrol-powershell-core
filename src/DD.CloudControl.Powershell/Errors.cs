@@ -4,6 +4,9 @@ using System.Management.Automation;
 
 namespace DD.CloudControl.Powershell
 {
+    using Client;
+    using Client.Models;
+
     /// <summary>
     ///     Factory methods for well-known <see cref="ErrorRecord"/>s.
     /// </summary>
@@ -75,6 +78,26 @@ namespace DD.CloudControl.Powershell
             );
         }
 
+        /// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when a resource was not found by Id.
+        /// </summary>
+        /// <typeparam name="TResource">
+		/// 	The type of resource that was not found.
+        /// </param>
+        /// <param name="resourceId">
+        ///     The Id of the resource that was not found.
+        /// </param>
+		/// <param name="message">
+        ///     An optional (custom) error message.
+        /// </param>
+		/// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord ResourceNotFoundById<TResource>(Guid resourceId, string message = null)
+        {
+            return ResourceNotFoundById<TResource>(resourceId.ToString(), message);
+        }
+
 		/// <summary>
         ///     Create an <see cref="ErrorRecord"/> for when a resource was not found by Id.
         /// </summary>
@@ -95,11 +118,13 @@ namespace DD.CloudControl.Powershell
             if (String.IsNullOrWhiteSpace(resourceId))
                 throw new ArgumentException("Resource Id cannot be null, empty, or entirely composed of whitespace.", nameof(resourceId));
 
-			string resourceType = typeof(TResource).Name;
+            Type resourceType = typeof(TResource);
+			string resourceTypeName = resourceType.Name;
+            string resourceTypeDescription = ResourceTypes.GetDescription(resourceType);
 
             return new ErrorRecord(
-                new Exception(message ?? $"No {resourceType} was found with Id '{resourceId}'."),
-                errorId: $"CloudControl.{resourceType}.NotFound",
+                new Exception(message ?? $"No {resourceTypeDescription} was found with Id '{resourceId}'."),
+                errorId: $"CloudControl.{resourceTypeName}.NotFound",
                 errorCategory: ErrorCategory.ObjectNotFound,
                 targetObject: resourceId
             );
@@ -125,11 +150,13 @@ namespace DD.CloudControl.Powershell
 			if (String.IsNullOrWhiteSpace(resourceName))
                 throw new ArgumentException("Resource name cannot be null, empty, or entirely composed of whitespace.", nameof(resourceName));
 
-			string resourceType = typeof(TResource).Name;
+			Type resourceType = typeof(TResource);
+			string resourceTypeName = resourceType.Name;
+            string resourceTypeDescription = ResourceTypes.GetDescription(resourceType);
 
             return new ErrorRecord(
-                new Exception(message ?? $"No {resourceType} named '{resourceName}' was found."),
-                errorId: $"CloudControl.{resourceType}.NotFound",
+                new Exception(message ?? $"No {resourceTypeDescription} named '{resourceName}' was found."),
+                errorId: $"CloudControl.{resourceTypeName}.NotFound",
                 errorCategory: ErrorCategory.ObjectNotFound,
                 targetObject: resourceName
             );
@@ -219,5 +246,33 @@ namespace DD.CloudControl.Powershell
 				targetObject: file
 			);
 		}
+
+        /// <summary>
+        ///     Create an <see cref="ErrorRecord"/> representing an error from the CloudControl API.
+        /// </summary>
+        /// <param name="client">
+        ///     The CloudControl API client.
+        /// </param>
+        /// <param name="apiResponse">
+        ///     The API response from CloudControl.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord CloudControlApi(CloudControlClient client, ApiResponseV2 apiResponse)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            if (apiResponse == null)
+                throw new ArgumentNullException(nameof(apiResponse));
+
+            return new ErrorRecord(
+                exception: CloudControlException.FromApiV2Response(apiResponse, statusCode: 0),
+                errorId: $"CloudControl.API.{apiResponse.ResponseCode}",
+                errorCategory: ErrorCategory.NotSpecified,
+                targetObject: client.BaseAddress?.AbsoluteUri ?? "Unknown"
+            );
+        }
     }
 }
