@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HTTPlease" Version="1.0.0-beta3-0201" />
-    <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta3-0201" />
-    <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta3-0201" />
+    <PackageReference Include="HTTPlease" Version="1.0.0-beta7" />
+    <PackageReference Include="HTTPlease.Formatters.Json" Version="1.0.0-beta7" />
+    <PackageReference Include="HTTPlease.Formatters.XmlSerializer" Version="1.0.0-beta7" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
 
     <PackageReference Include="PSReptile" Version="0.0.1-alpha2"/>

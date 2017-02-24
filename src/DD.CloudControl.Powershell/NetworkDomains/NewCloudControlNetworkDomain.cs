@@ -46,8 +46,8 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         ///     The type of network domain to create.
         /// </summary>
         /// <seealso cref="NetworkDomainType"/>
-        [Parameter(Mandatory = true, HelpMessage = "The type of network domain to create")]
-        public NetworkDomainType Type { get; set; }
+        [Parameter(HelpMessage = "The type of network domain to create (default is essentials)")]
+        public NetworkDomainType Type { get; set; } = NetworkDomainType.Essentials;
 
         /// <summary>
         ///     Asynchronously perform Cmdlet processing.
@@ -64,6 +64,10 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 return;
 
             CloudControlClient client = GetClient();
+
+            WriteVerbose(
+                $"Create network domain named '{Name}' (described as '{Description ?? "null"}') of type '{Type}' in datacenter '{DatacenterId}'."
+            );
 
             Guid networkDomainId = await client.CreateNetworkDomain(DatacenterId, Name, Description, Type, cancellationToken);
             NetworkDomain networkDomain = await client.GetNetworkDomain(networkDomainId, cancellationToken);

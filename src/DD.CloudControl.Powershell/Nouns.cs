@@ -26,6 +26,11 @@ namespace DD.CloudControl.Powershell
         public const string NetworkDomain = Prefix + "NetworkDomain";
 
         /// <summary>
+        ///     A VLAN.
+        /// </summary>
+        public const string Vlan = Prefix + "VLAN";
+
+        /// <summary>
         ///     A resource's state.
         /// </summary>
         public const string ResourceState = Prefix + "ResourceState";
