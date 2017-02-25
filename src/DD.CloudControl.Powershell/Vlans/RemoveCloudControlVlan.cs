@@ -11,25 +11,25 @@ namespace DD.CloudControl.Powershell.NetworkDomains
     using Client.Models.Network;
 
     /// <summary>
-    ///     Cmdlet that destroys an existing network domain.
+    ///     Cmdlet that updates an existing VLAN.
     /// </summary>
     [OutputType(typeof(ApiResponseV2))]
-    [Cmdlet(VerbsCommon.Remove, Nouns.NetworkDomain, DefaultParameterSetName = "By Id", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Remove, Nouns.Vlan, DefaultParameterSetName = "By Id", SupportsShouldProcess = true)]
     [CmdletSynopsis("Destroys a network domain")]
-    public class RemoveCloudControlNetworkDomain
+    public class RemoveCloudControlVan
         : CloudControlCmdlet
     {
         /// <summary>
-        ///     The network domain to destroy.
+        ///     The VLAN to destroy.
         /// </summary>
         [ValidateNotNull]
-        [Parameter(ParameterSetName="From network domain", Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "The network domain to destroy")]
-        public NetworkDomain NetworkDomain { get; set; }
+        [Parameter(ParameterSetName="From VLAN", Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "The VLAN to destroy")]
+        public Vlan VLAN { get; set; }
 
         /// <summary>
-        ///     The Id of the network domain to destroy.
+        ///     The Id of the VLAN to update.
         /// </summary>
-        [Parameter(ParameterSetName="By Id", Mandatory = true, Position = 0, HelpMessage = "The Id of the network domain to destroy")]
+        [Parameter(ParameterSetName="By Id", Mandatory = true, Position = 0, HelpMessage = "The Id of the VLAN to destroy")]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -45,22 +45,22 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         {
             CloudControlClient client = GetClient();
 
-            NetworkDomain networkDomain;
+            Vlan vlan;
             switch (ParameterSetName)
             {
-                case "From network domain":
+                case "From VLAN":
                 {
-                    networkDomain = NetworkDomain;
+                    vlan = VLAN;
 
                     break;
                 }
                 case "By Id":
                 {
-                    networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
-                    if (networkDomain == null)
+                    vlan = await client.GetVlan(Id, cancellationToken);
+                    if (vlan == null)
                     {
                         WriteError(
-                            Errors.ResourceNotFoundById<NetworkDomain>(Id)
+                            Errors.ResourceNotFoundById<Vlan>(Id)
                         );
 
                         return;
@@ -78,10 +78,10 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 }
             }
 
-            if (!ShouldProcess(target: $"network domain '{networkDomain.Id}' ('{networkDomain.Name}') in '{networkDomain.DatacenterId}'", action: "Destroy"))
+            if (!ShouldProcess(target: $"VLAN '{vlan.Id}' ('{vlan.Name}') in '{vlan.NetworkDomain.Name}'", action: "Destroy"))
                 return;
 
-            ApiResponseV2 apiResponse = await client.DeleteNetworkDomain(networkDomain.Id, cancellationToken);
+            ApiResponseV2 apiResponse = await client.DeleteVlan(vlan.Id, cancellationToken);
             if (!apiResponse.IsSuccess())
             {
                 WriteError(
