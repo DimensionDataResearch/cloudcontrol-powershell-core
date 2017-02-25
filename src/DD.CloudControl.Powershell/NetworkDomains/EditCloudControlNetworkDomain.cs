@@ -80,12 +80,14 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 }
                 case "By Id":
                 {
-                    networkDomain = await client.GetNetworkDomain(Id);
+                    networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
                     if (networkDomain == null)
                     {
                         WriteError(
                             Errors.ResourceNotFoundById<NetworkDomain>(Id)
                         );
+
+                        return;
                     }
 
                     break;
@@ -103,7 +105,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
             if (!ShouldProcess(target: $"network domain '{networkDomain.Id}' ('{networkDomain.Name}') in '{networkDomain.DatacenterId}'", action: "update"))
                 return;
 
-            ApiResponseV2 editResponse = await client.EditNetworkDomain(networkDomain);
+            ApiResponseV2 editResponse = await client.EditNetworkDomain(networkDomain, cancellationToken);
             if (!editResponse.IsSuccess())
             {
                 WriteError(

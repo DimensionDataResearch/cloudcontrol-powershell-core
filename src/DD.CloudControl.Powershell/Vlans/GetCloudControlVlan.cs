@@ -4,7 +4,7 @@ using System.Management.Automation;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DD.CloudControl.Powershell.NetworkDomains
+namespace DD.CloudControl.Powershell.Vlans
 {
     using Client;
     using Client.Models.Network;
@@ -12,13 +12,10 @@ namespace DD.CloudControl.Powershell.NetworkDomains
     /// <summary>
     ///     Cmdlet that retrieves information about one or more network domains.
     /// </summary>
-    [OutputType(typeof(NetworkDomain))]
-    [Cmdlet(VerbsCommon.Get, Nouns.NetworkDomain, SupportsPaging = true)]
-    [CmdletSynopsis("Retrieves information about one or more network domains")]
-    [CmdletDescription(@"
-        A network domain is the top-level container for resources in CloudControl.
-    ")]
-    public class GetCloudControlNetworkDomain
+    [OutputType(typeof(Vlan))]
+    [Cmdlet(VerbsCommon.Get, Nouns.Vlan, SupportsPaging = true)]
+    [CmdletSynopsis("Retrieves information about one or more VLANs")]
+    public class GetCloudControlVlan
         : CloudControlCmdlet
     {
         /// <summary>
@@ -30,16 +27,15 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         /// <summary>
         ///     The Id of the target datacenter.
         /// </summary>
-        [ValidateNotNullOrEmpty]
-        [Parameter(ParameterSetName = "By Datacenter", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
-        [Parameter(ParameterSetName = "By Name", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
-        public string DatacenterId { get; set; }
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
+        [Parameter(ParameterSetName = "By network domain", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
+        public Guid NetworkDomainId { get; set; }
 
         /// <summary>
         ///     The name of the network domain to retrieve.
         /// </summary>
         [ValidateNotNullOrEmpty]
-        [Parameter(ParameterSetName = "By Name", Mandatory = true, HelpMessage = "The name the network domain to retrieve")]
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The name the network domain to retrieve")]
         public string Name { get; set; }
 
         /// <summary>
@@ -57,7 +53,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
 
             switch (ParameterSetName)
             {
-                case "By Datacenter":
+                case "By network domain":
                 {
                     Paging paging = null;
                     if (PagingParameters.First != UInt64.MaxValue)
@@ -69,8 +65,8 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                         };
                     }
 
-                    NetworkDomains networkDomains = await client.ListNetworkDomains(DatacenterId, paging, cancellationToken);
-                    WriteObject(networkDomains.Items,
+                    Vlans vlans = await client.ListVlans(NetworkDomainId, paging, cancellationToken);
+                    WriteObject(vlans.Items,
                         enumerateCollection: true
                     );
 
@@ -78,31 +74,31 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 }
                 case "By Id":
                 {
-                    NetworkDomain networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
-                    if (networkDomain == null)
+                    Vlan vlan = await client.GetVlan(Id, cancellationToken);
+                    if (vlan == null)
                     {
                         WriteError(
-                            Errors.ResourceNotFoundById<NetworkDomain>(Id)
+                            Errors.ResourceNotFoundById<Vlan>(Id)
                         );
                     }
                     else
-                        WriteObject(networkDomain);
+                        WriteObject(vlan);
 
                     break;
                 }
-                case "By Name":
+                case "By name":
                 {
-                    NetworkDomain networkDomain = await client.GetNetworkDomainByName(Name, DatacenterId);
-                    if (networkDomain == null)
+                    Vlan vlan = await client.GetVlanByName(Name, NetworkDomainId);
+                    if (vlan == null)
                     {
                         WriteError(
-                            Errors.ResourceNotFoundByName<NetworkDomain>(Name, 
-                                message: $"No network domain named '{Name}' was found in datacenter '{DatacenterId}'."
+                            Errors.ResourceNotFoundByName<Vlan>(Name, 
+                                message: $"No network domain named '{Name}' was found in network domain '{NetworkDomainId}'."
                             )
                         );
                     }
                     else
-                        WriteObject(networkDomain);
+                        WriteObject(vlan);
                     
                     break;
                 }

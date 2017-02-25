@@ -61,5 +61,40 @@ namespace DD.CloudControl.Powershell
 
             return client;
         }
+
+        /// <summary>
+        ///     Write an <see cref="ErrorRecord"/> to the pipline that indicates the Cmdlet has been passed an invalid parameter.
+        /// </summary>
+        /// <param name="parameterName">
+        ///     The name of the invalid parameter.
+        /// </param>
+        /// <param name="messageOrFormat">
+        ///     The error message or message-format specifier.
+        /// </param>
+        /// <param name="formatArguments">
+        ///     Optional message format arguments.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        protected void InvalidParameter(string parameterName, string messageOrFormat, params object[] formatArguments)
+        {
+            WriteError(
+                Errors.InvalidParameter(this, parameterName, messageOrFormat, formatArguments)
+            );
+        }
+
+        /// <summary>
+		///		Throw a terminating <see cref="ErrorRecord"/> to the pipline that indicates an unrecognised parameter set was encountered by the Cmdlet.
+		/// </summary>
+		/// <returns>
+		///		The configured <see cref="ErrorRecord"/>.
+		/// </returns>
+		protected void UnrecognizedParameterSet(PSCmdlet cmdlet)
+        {
+            ThrowTerminatingError(
+                Errors.UnrecognizedParameterSet(this)
+            );
+        }
     }
 }

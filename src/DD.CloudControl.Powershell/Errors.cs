@@ -248,6 +248,43 @@ namespace DD.CloudControl.Powershell
 		}
 
         /// <summary>
+        ///     Create an <see cref="ErrorRecord"/> for when a Cmdlet has been passed an invalid parameter.
+        /// </summary>
+        /// <param name="cmdlet">
+        ///     The calling Cmdlet.
+        /// </param>
+        /// <param name="parameterName">
+        ///     The name of the invalid parameter.
+        /// </param>
+        /// <param name="messageOrFormat">
+        ///     The error message or message-format specifier.
+        /// </param>
+        /// <param name="formatArguments">
+        ///     Optional message format arguments.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="ErrorRecord"/>.
+        /// </returns>
+        public static ErrorRecord InvalidParameter(PSCmdlet cmdlet, string parameterName, string messageOrFormat, params object[] formatArguments)
+        {
+            if (cmdlet == null)
+                throw new ArgumentNullException(nameof(cmdlet));
+
+            if (String.IsNullOrWhiteSpace(parameterName))
+				throw new ArgumentException("Argument cannot be null, empty, or composed entirely of whitespace: 'parameterName'.", nameof(parameterName));
+
+            if (String.IsNullOrWhiteSpace(messageOrFormat))
+				throw new ArgumentException("Argument cannot be null, empty, or composed entirely of whitespace: 'messageOrFormat'.", nameof(messageOrFormat));
+
+            return new ErrorRecord(
+                new ArgumentException(String.Format(messageOrFormat, formatArguments)),
+                errorId: "DD.CloudControl.InvalidParameter",
+                errorCategory: ErrorCategory.InvalidArgument,
+                targetObject: cmdlet.MyInvocation.MyCommand.Name
+            );
+        }
+
+        /// <summary>
         ///     Create an <see cref="ErrorRecord"/> representing an error from the CloudControl API.
         /// </summary>
         /// <param name="client">

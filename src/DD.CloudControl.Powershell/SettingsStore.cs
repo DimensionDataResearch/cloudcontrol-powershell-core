@@ -7,6 +7,8 @@ using System.Text;
 
 namespace DD.CloudControl.Powershell
 {
+    using Utilities;
+
     /// <summary>
     ///     Persistence for CloudControl Powershell module settings.
     /// </summary>
@@ -143,6 +145,13 @@ namespace DD.CloudControl.Powershell
                 serializer.Serialize(settingsWriter, connections);
                 
                 settingsWriter.Flush();
+            }
+
+            if (OS.IsMac || OS.IsLinux)
+            {
+                ConnectionSettingsFile.SetPosixPermissions(
+                    PosixPermissions.UserRead | PosixPermissions.UserWrite
+                );
             }
         }
 
