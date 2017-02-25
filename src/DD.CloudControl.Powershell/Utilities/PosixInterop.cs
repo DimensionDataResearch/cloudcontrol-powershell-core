@@ -104,9 +104,14 @@ namespace DD.CloudControl.Powershell.Utilities
         UserExecute = 0x40,
 
         /// <summary>
+        ///     User can read and write.
+        /// </summary>
+        UserReadWrite = UserRead | UserWrite,
+
+        /// <summary>
         ///     User can read, write, and execute.
         /// </summary>
-        UserReadWriteExecute = UserRead | UserWrite | UserExecute,
+        UserReadWriteExecute = UserReadWrite | UserExecute,
 
         /// <summary>
         ///     Group can read.
@@ -124,9 +129,14 @@ namespace DD.CloudControl.Powershell.Utilities
         GroupExecute = 0x8,
 
         /// <summary>
+        ///     Group can read and write.
+        /// </summary>
+        GroupReadWrite = GroupRead | GroupWrite,
+
+        /// <summary>
         ///     Group can read, write, and execute.
         /// </summary>
-        GroupReadWriteExecute = GroupRead | GroupWrite | GroupExecute,
+        GroupReadWriteExecute = GroupReadWrite | GroupExecute,
 
         /// <summary>
         ///     Others can read.
@@ -144,8 +154,15 @@ namespace DD.CloudControl.Powershell.Utilities
         OtherExecute = 0x1,
 
         /// <summary>
+        ///     Others can read and write.
+        /// </summary>
+        OtherReadWrite = OtherRead | OtherWrite,
+
+        /// <summary>
         ///     Others can read, write, and execute.
         /// </summary>
-        OtherReadWriteExecute = OtherRead | OtherWrite | OtherExecute
+        OtherReadWriteExecute = OtherReadWrite | OtherExecute
+
+        // TODO: AllRead, AllWrite, AllExecute, AllReadWrite, AllReadWriteExecute
     }
 }

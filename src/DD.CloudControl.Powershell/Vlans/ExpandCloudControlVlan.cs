@@ -1,6 +1,7 @@
 using PSReptile;
 using System;
 using System.Management.Automation;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace DD.CloudControl.Powershell.Vlans
     using Client;
     using Client.Models;
     using Client.Models.Network;
+    using Utilities;
 
     /// <summary>
     ///     Cmdlet that expands the private IPv4 network of an existing VLAN.
@@ -85,17 +87,39 @@ namespace DD.CloudControl.Powershell.Vlans
                 }
             }
 
+            IPAddress baseAddress = IPAddress.Parse(vlan.PrivateIPv4Range.Address);
+                
+            IPAddress existingStartAddress, existingEndAddress;
+            baseAddress.CalculateIPv4NetworkAddresses(vlan.PrivateIPv4Range.PrefixSize,
+                out existingStartAddress,
+                out existingEndAddress
+            );
+            string existingNetwork = $"{baseAddress}/{vlan.PrivateIPv4Range.PrefixSize} ({existingStartAddress}-{existingEndAddress})";
+
+            IPAddress targetStartAddress, targetEndAddress;
+            baseAddress.CalculateIPv4NetworkAddresses(IPv4PrefixSize,
+                out targetStartAddress,
+                out targetEndAddress
+            );
+            string targetNetwork = $"{baseAddress}/{IPv4PrefixSize} ({targetStartAddress}-{targetEndAddress})";
+
             if (IPv4PrefixSize >= vlan.PrivateIPv4Range.PrefixSize)
             {
                 InvalidParameter(nameof(IPv4PrefixSize),
-                    $"Cannot expand VLAN - the specified IPv4 prefix size is {IPv4PrefixSize}, which is greater than or equal to the VLAN's current IPv4 prefix size ({vlan.PrivateIPv4Range.PrefixSize}). To expand the VLAN's IPv4 network, reduce its prefix size."
+                    $"Cannot expand VLAN network from {existingNetwork} to {targetNetwork}. To expand the VLAN's IPv4 network, reduce its IPv4 prefix size."
                 );
 
                 return;
             }
 
-            if (!ShouldProcess(target: $"IPv4 network for VLAN '{vlan.Id}' ('{vlan.Name}') in '{vlan.NetworkDomain.Name}' (from {vlan.PrivateIPv4Range.PrefixSize} prefix bits to {IPv4PrefixSize} prefix bits.", action: "expand"))
+            WriteVerbose(
+                $"Expanding VLAN '{vlan.Name}' (in network domain '{vlan.NetworkDomain.Name}') from {existingNetwork} to {targetNetwork}."
+            );
+
+            if (!ShouldProcess(target: $"'{vlan.Name}' ('{vlan.Id}') in '{vlan.NetworkDomain.Name}' (from {existingNetwork} to {targetNetwork}).", action: "Expand"))
                 return;
+
+            WriteVerbose("Initiating expansion of VLAN...");
 
             ApiResponseV2 editResponse = await client.ExpandVlan(vlan.Id, IPv4PrefixSize, cancellationToken);
             if (!editResponse.IsSuccess())
@@ -106,6 +130,8 @@ namespace DD.CloudControl.Powershell.Vlans
 
                 return;
             }
+
+            WriteVerbose("VLAN expansion initiated.");
 
             Vlan updatedVlan = await client.GetVlan(vlan.Id, cancellationToken);
             if (updatedVlan == null)

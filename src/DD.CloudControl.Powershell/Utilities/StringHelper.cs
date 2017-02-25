@@ -7,7 +7,7 @@ namespace DD.CloudControl.Powershell.Utilities
     /// <summary>
     ///     Utility functions for working with strings.
     /// </summary>
-    public static class StringUtilities
+    public static class StringHelper
     {
         /// <summary>
         ///     Convert the string to a <see cref="SecureString"/>.

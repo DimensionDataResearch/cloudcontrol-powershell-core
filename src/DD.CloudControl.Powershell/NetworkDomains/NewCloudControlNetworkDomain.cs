@@ -60,16 +60,20 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         /// </returns>
         protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
         {
-            if (!ShouldProcess(target: $"network domain '{Name}' in '{DatacenterId}'", action: "create"))
+            if (!ShouldProcess(target: $"{Type} network domain '{Name}' in '{DatacenterId}'", action: "Create"))
                 return;
 
-            CloudControlClient client = GetClient();
-
             WriteVerbose(
-                $"Create network domain named '{Name}' (described as '{Description ?? "null"}') of type '{Type}' in datacenter '{DatacenterId}'."
+                $"Create {Type} network domain '{Name}' in datacenter '{DatacenterId}'."
             );
 
+            WriteVerbose("Initiating deployment of network domain...");
+
+            CloudControlClient client = GetClient();
             Guid networkDomainId = await client.CreateNetworkDomain(DatacenterId, Name, Description, Type, cancellationToken);
+
+            WriteVerbose($"Deployment initiated for network domain '{networkDomainId}'.");
+
             NetworkDomain networkDomain = await client.GetNetworkDomain(networkDomainId, cancellationToken);
             if (networkDomain == null)
             {

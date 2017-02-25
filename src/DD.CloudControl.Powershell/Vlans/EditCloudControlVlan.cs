@@ -92,7 +92,7 @@ namespace DD.CloudControl.Powershell.Vlans
                 }
             }
 
-            if (!ShouldProcess(target: $"VLAN '{vlan.Id}' ('{vlan.Name}') in '{vlan.NetworkDomain.Name}'", action: "update"))
+            if (!ShouldProcess(target: $"VLAN '{vlan.Id}' ('{vlan.Name}') in '{vlan.NetworkDomain.Name}'", action: "Edit"))
                 return;
 
             ApiResponseV2 editResponse = await client.EditVlan(vlan, cancellationToken);

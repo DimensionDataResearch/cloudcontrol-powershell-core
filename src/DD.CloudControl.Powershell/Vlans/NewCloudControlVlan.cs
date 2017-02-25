@@ -132,10 +132,19 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 }
             }
 
-            if (!ShouldProcess(target: $"VLAN '{Name}' in '{NetworkDomain.Name}'", action: "create"))
+            if (!ShouldProcess(target: $"VLAN '{Name}' in '{NetworkDomain.Name}'", action: "Create"))
                 return;
 
+            WriteVerbose(
+                $"Deploy VLAN '{Name}' in network domain '{NetworkDomain.Name}' ({NetworkDomain.DatacenterId})."
+            );
+
+            WriteVerbose("Initiating deployment of VLAN...");
+
             Guid vlanId = await client.CreateVlan(Name, Description, NetworkDomainId, IPv4BaseAddress, IPv4PrefixSize, GatewayAddressing, cancellationToken);
+
+            WriteVerbose($"Deployment initiated for VLAN '{vlanId}'.");
+
             Vlan vlan = await client.GetVlan(vlanId, cancellationToken);
             if (vlan == null)
             {
