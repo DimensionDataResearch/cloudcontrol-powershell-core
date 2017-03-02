@@ -11,7 +11,7 @@ namespace DD.CloudControl.Powershell.Vlans
     using Client.Models.Network;
 
     /// <summary>
-    ///     Cmdlet that updates an existing network domain.
+    ///     Cmdlet that updates an existing VLAN.
     /// </summary>
     [OutputType(typeof(Vlan))]
     [Cmdlet(VerbsData.Edit, Nouns.Vlan, DefaultParameterSetName = "By Id", SupportsShouldProcess = true)]

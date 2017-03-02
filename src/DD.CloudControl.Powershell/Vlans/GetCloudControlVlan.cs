@@ -10,7 +10,7 @@ namespace DD.CloudControl.Powershell.Vlans
     using Client.Models.Network;
 
     /// <summary>
-    ///     Cmdlet that retrieves information about one or more network domains.
+    ///     Cmdlet that retrieves information about one or more VLANs.
     /// </summary>
     [OutputType(typeof(Vlan))]
     [Cmdlet(VerbsCommon.Get, Nouns.Vlan, SupportsPaging = true)]
@@ -19,23 +19,23 @@ namespace DD.CloudControl.Powershell.Vlans
         : CloudControlCmdlet
     {
         /// <summary>
-        ///     The Id of the network domain to retrieve.
+        ///     The Id of the VLAN to retrieve.
         /// </summary>
         [Parameter(ParameterSetName = "By Id", Mandatory = true, HelpMessage = "The Id of the network domain to retrieve")]
         public Guid Id { get; set; }
 
         /// <summary>
-        ///     The Id of the target datacenter.
+        ///     The Id of the network domain where the VLAN is defined.
         /// </summary>
-        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
-        [Parameter(ParameterSetName = "By network domain", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The Id of the network domain where the VLAN is defined")]
+        [Parameter(ParameterSetName = "By network domain", Mandatory = true, HelpMessage = "The Id of the network domain where the VLAN is defined")]
         public Guid NetworkDomainId { get; set; }
 
         /// <summary>
-        ///     The name of the network domain to retrieve.
+        ///     The name of the VLAN to retrieve.
         /// </summary>
         [ValidateNotNullOrEmpty]
-        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The name the network domain to retrieve")]
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The name the VLAN to retrieve")]
         public string Name { get; set; }
 
         /// <summary>

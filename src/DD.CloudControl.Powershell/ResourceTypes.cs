@@ -19,7 +19,9 @@ namespace DD.CloudControl.Powershell
             ImmutableDictionary.CreateRange(new Dictionary<Type, string>
             {
                 [typeof(UserAccount)] = "user account",
-                [typeof(NetworkDomain)] = "network domain"
+                [typeof(NetworkDomain)] = "network domain",
+                [typeof(Vlan)] = "VLAN",
+                [typeof(NatRule)] = "NAT rule"
             });
 
         /// <summary>
