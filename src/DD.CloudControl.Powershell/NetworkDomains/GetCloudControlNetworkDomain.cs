@@ -59,15 +59,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
             {
                 case "By Datacenter":
                 {
-                    Paging paging = null;
-                    if (PagingParameters.First != UInt64.MaxValue)
-                    {
-                        paging = new Paging
-                        {
-                            PageSize = (int)PagingParameters.First,
-                            PageNumber = (int)(PagingParameters.Skip / PagingParameters.First)
-                        };
-                    }
+                    Paging paging = GetPagingConfiguration();
 
                     NetworkDomains networkDomains = await client.ListNetworkDomains(DatacenterId, paging, cancellationToken);
                     WriteObject(networkDomains.Items,

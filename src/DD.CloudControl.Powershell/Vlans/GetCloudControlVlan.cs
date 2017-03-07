@@ -55,15 +55,7 @@ namespace DD.CloudControl.Powershell.Vlans
             {
                 case "By network domain":
                 {
-                    Paging paging = null;
-                    if (PagingParameters.First != UInt64.MaxValue)
-                    {
-                        paging = new Paging
-                        {
-                            PageSize = (int)PagingParameters.First,
-                            PageNumber = (int)(PagingParameters.Skip / PagingParameters.First)
-                        };
-                    }
+                    Paging paging = GetPagingConfiguration();
 
                     Vlans vlans = await client.ListVlans(NetworkDomainId, paging, cancellationToken);
                     WriteObject(vlans.Items,

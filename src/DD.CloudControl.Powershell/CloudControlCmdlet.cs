@@ -63,6 +63,24 @@ namespace DD.CloudControl.Powershell
         }
 
         /// <summary>
+        ///     Get the Cmdlet's current paging configuration (if any).
+        /// </summary>
+        /// <returns>
+        ///     The configuration as a <see cref="Paging"/>, or <c>null</c> if no paging has been configured.
+        /// </returns>
+        protected Paging GetPagingConfiguration()
+        {
+            if (PagingParameters.First == 0 || PagingParameters.First == UInt64.MaxValue)
+                return null;
+
+            return new Paging
+            {
+                PageSize = (int)PagingParameters.First,
+                PageNumber = (int)(PagingParameters.Skip / PagingParameters.First) + 1 // Skip 0 = Page 1
+            };
+        }
+
+        /// <summary>
         ///     Write an <see cref="ErrorRecord"/> to the pipline that indicates the Cmdlet has been passed an invalid parameter.
         /// </summary>
         /// <param name="parameterName">

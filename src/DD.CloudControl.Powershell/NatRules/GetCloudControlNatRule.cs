@@ -61,16 +61,8 @@ namespace DD.CloudControl.Powershell.NatRules
                 }
                 case "By network domain":
                 {
-                    Paging paging = null;
-                    if (PagingParameters.First != UInt64.MaxValue)
-                    {
-                        paging = new Paging
-                        {
-                            PageSize = (int)PagingParameters.First,
-                            PageNumber = (int)(PagingParameters.Skip / PagingParameters.First)
-                        };
-                    }
-
+                    Paging paging = GetPagingConfiguration();
+                    
                     NatRules natRules = await client.ListNatRules(NetworkDomainId, paging, cancellationToken);
                     WriteObject(natRules.Items,
                         enumerateCollection: true
