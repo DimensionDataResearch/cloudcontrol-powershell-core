@@ -30,6 +30,11 @@ namespace DD.CloudControl.Powershell
         /// </summary>
         public const string Vlan = Prefix + "VLAN";
 
+		/// <summary>
+        ///     A server.
+        /// </summary>
+        public const string Server = Prefix + "Server";
+
         /// <summary>
         ///     A NAT rule.
         /// </summary>

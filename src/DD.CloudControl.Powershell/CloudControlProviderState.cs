@@ -20,11 +20,15 @@ namespace DD.CloudControl.Powershell
         public CloudControlProviderState(ProviderInfo providerInfo)
             : base(providerInfo)
         {
-            CloudControlProviderState existingProviderState = providerInfo as CloudControlProviderState;
-            if (existingProviderState == null)
-                return;
+			switch (providerInfo)
+			{
+				case CloudControlProviderState existingProviderState:
+				{
+					DefaultConnectionName = existingProviderState.DefaultConnectionName;
 
-            DefaultConnectionName = existingProviderState.DefaultConnectionName;
+					break;
+				}
+			}            
         }
 
         /// <summary>

@@ -164,22 +164,34 @@ namespace DD.CloudControl.Powershell
         /// <param name="sessionState">
         ///     The session state.
         /// </param>
-        /// <returns>
-        ///     The <see cref="CloudControlProviderState"/>.
+        /// <param name="isRequired">
+		/// 	Throw an exception if valid provider state cannot be found?
+		/// </param>
+		/// <returns>
+        ///     The <see cref="CloudControlProviderState"/> (or <c>null</c> if provider state was not found in session state and <paramref name="isRequired"/> is <c>false</c>).
         /// </returns>
         /// <exception cref="InvalidOperationException">
-        ///     The session state does not contain CloudControl provider state.
+        ///     The session state does not contain CloudControl provider state and and <paramref name="isRequired"/> is <c>true</c>.
         /// </exception>
-        static CloudControlProviderState GetProviderState(this SessionState sessionState)
+        static CloudControlProviderState GetProviderState(this SessionState sessionState, bool isRequired = true)
         {
             if (sessionState == null)
 				throw new ArgumentNullException(nameof(sessionState));
 
-			CloudControlProviderState providerState = sessionState.Provider.GetOne(CloudControlProvider.ProviderName) as CloudControlProviderState;
-			if (providerState == null)
-				throw new InvalidOperationException("Cannot find CloudControl Powershell provider state in current session."); // AF: Should not happen under normal circumstances.
-            
-            return providerState;
+			switch (sessionState.Provider.GetOne(CloudControlProvider.ProviderName))
+			{
+				case CloudControlProviderState providerState:
+				{
+					return providerState;
+				}
+				default:
+				{
+					if (isRequired)
+						throw new InvalidOperationException("Cannot find CloudControl Powershell provider state in current session."); // AF: Should not happen under normal circumstances.
+					
+					return null;
+				}
+			}
         }
 	}
 }

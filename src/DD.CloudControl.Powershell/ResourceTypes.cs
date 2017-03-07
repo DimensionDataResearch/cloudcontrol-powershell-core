@@ -6,6 +6,7 @@ namespace DD.CloudControl.Powershell
 {
     using Client.Models.Directory;
     using Client.Models.Network;
+    using Client.Models.Server;
 
     /// <summary>
     ///     Resource type constants.
@@ -21,6 +22,7 @@ namespace DD.CloudControl.Powershell
                 [typeof(UserAccount)] = "user account",
                 [typeof(NetworkDomain)] = "network domain",
                 [typeof(Vlan)] = "VLAN",
+                [typeof(Server)] = "server",
                 [typeof(NatRule)] = "NAT rule"
             });
 
@@ -40,8 +42,7 @@ namespace DD.CloudControl.Powershell
             if (resourceType == null)
                 throw new ArgumentNullException(nameof(resourceType));
 
-            string description;
-            if (Descriptions.TryGetValue(resourceType, out description))
+            if (Descriptions.TryGetValue(resourceType, out string description))
                 return description;
 
             return resourceType.Name;
