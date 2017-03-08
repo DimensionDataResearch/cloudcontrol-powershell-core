@@ -27,20 +27,20 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         [Parameter(ParameterSetName = "By Id", Mandatory = true, HelpMessage = "The Id of the network domain to retrieve")]
         public Guid Id { get; set; }
 
+		/// <summary>
+        ///     The name of the network domain to retrieve.
+        /// </summary>
+        [ValidateNotNullOrEmpty]
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The name the network domain to retrieve")]
+        public string Name { get; set; }
+
         /// <summary>
         ///     The Id of the target datacenter.
         /// </summary>
         [ValidateNotNullOrEmpty]
-        [Parameter(ParameterSetName = "By Datacenter", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
-        [Parameter(ParameterSetName = "By Name", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
+        [Parameter(ParameterSetName = "By name", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
+        [Parameter(ParameterSetName = "By datacenter", Mandatory = true, HelpMessage = "The Id of the target datacenter")]
         public string DatacenterId { get; set; }
-
-        /// <summary>
-        ///     The name of the network domain to retrieve.
-        /// </summary>
-        [ValidateNotNullOrEmpty]
-        [Parameter(ParameterSetName = "By Name", Mandatory = true, HelpMessage = "The name the network domain to retrieve")]
-        public string Name { get; set; }
 
         /// <summary>
         ///     Asynchronously perform Cmdlet processing.
@@ -57,17 +57,6 @@ namespace DD.CloudControl.Powershell.NetworkDomains
 
             switch (ParameterSetName)
             {
-                case "By Datacenter":
-                {
-                    Paging paging = GetPagingConfiguration();
-
-                    NetworkDomains networkDomains = await client.ListNetworkDomains(DatacenterId, paging, cancellationToken);
-                    WriteObject(networkDomains.Items,
-                        enumerateCollection: true
-                    );
-
-                    break;
-                }
                 case "By Id":
                 {
                     NetworkDomain networkDomain = await client.GetNetworkDomain(Id, cancellationToken);
@@ -82,7 +71,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
 
                     break;
                 }
-                case "By Name":
+				case "By name":
                 {
                     NetworkDomain networkDomain = await client.GetNetworkDomainByName(Name, DatacenterId);
                     if (networkDomain == null)
@@ -98,6 +87,17 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                     
                     break;
                 }
+				case "By datacenter":
+                {
+                    Paging paging = GetPagingConfiguration();
+                    NetworkDomains networkDomains = await client.ListNetworkDomains(DatacenterId, paging, cancellationToken);
+                    WriteObject(networkDomains.Items,
+                        enumerateCollection: true
+                    );
+
+                    break;
+                }
+                
                 default:
                 {
                     ThrowTerminatingError(
