@@ -11,11 +11,11 @@ namespace DD.CloudControl.Powershell.NetworkDomains
     using Client.Models.Network;
 
     /// <summary>
-    ///     Cmdlet that updates an existing VLAN.
+    ///     Cmdlet that destroys a VLAN.
     /// </summary>
     [OutputType(typeof(ApiResponseV2))]
     [Cmdlet(VerbsCommon.Remove, Nouns.Vlan, DefaultParameterSetName = "By Id", SupportsShouldProcess = true)]
-    [CmdletSynopsis("Destroys a network domain")]
+    [CmdletSynopsis("Destroys a VLAN")]
     public class RemoveCloudControlVan
         : CloudControlCmdlet
     {
@@ -27,7 +27,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
         public Vlan VLAN { get; set; }
 
         /// <summary>
-        ///     The Id of the VLAN to update.
+        ///     The Id of the VLAN to destroy.
         /// </summary>
         [Parameter(ParameterSetName="By Id", Mandatory = true, Position = 0, HelpMessage = "The Id of the VLAN to destroy")]
         public Guid Id { get; set; }
@@ -78,7 +78,7 @@ namespace DD.CloudControl.Powershell.NetworkDomains
                 }
             }
 
-            if (!ShouldProcess(target: $"VLAN '{vlan.Id}' ('{vlan.Name}') in '{vlan.NetworkDomain.Name}'", action: "Destroy"))
+            if (!ShouldProcess(target: $"VLAN '{vlan.Name}' ('{vlan.Id}') in network domain '{vlan.NetworkDomain.Name}'", action: "Destroy"))
                 return;
 
             ApiResponseV2 apiResponse = await client.DeleteVlan(vlan.Id, cancellationToken);

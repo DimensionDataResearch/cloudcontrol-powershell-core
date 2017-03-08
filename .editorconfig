@@ -1,10 +1,11 @@
 root = true
 
 [*]
-indent_style = tab
+indent_style = space
 
 # Code files
 [*.{cs,csx,vb,vbx}]
+indent_style = tab
 indent_size = 4
 
 # Xml project files
@@ -21,12 +22,10 @@ indent_size = 2
 
 # YAML
 [*.yaml]
-indent_style = space
 indent_size = 2
 
 # Docs
 [*.{rst, md}]
-indent_style = space
 indent_size = 4
 
 # .NET code style settings:
