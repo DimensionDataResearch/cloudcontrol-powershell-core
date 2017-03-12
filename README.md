@@ -1,7 +1,15 @@
-# compute-powershell-core
+# CloudControl module for PowerShell Core
+
+## Introduction
 
 A Powershell Core module for interacting with Dimension Data CloudControl.
 It's functional, but definitely still a work in progress.
+
+## Requirements
+
+Needs PowerShell Core v6.0.0-alpha17 or newer.
+
+## Getting started
  
 To get started:
 

@@ -36,7 +36,7 @@
 
   <!-- Powershell Core v6.0.0-alpha13 -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha17"/>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
   </ItemGroup>
 </Project>
