@@ -185,6 +185,47 @@ namespace DD.CloudControl.Powershell
 		}
 
 		/// <summary>
+		///		Create an <see cref="ErrorRecord"/> for when a Cmdlet (or part of its functionality) is not implemented.
+		/// </summary>
+		/// <param name="cmdlet">
+		///		A message or message format specifier describing what is not implemented (and why).
+		/// </param>
+		/// <param name="messageOrFormat">
+		/// 	An optional error message or message-format specifier.
+		/// </param>
+		/// <param name="formatArguments">
+		///		Optional message format arguments.
+		/// </param>
+		/// <exception cref="ArgumentException">
+		///		<paramref name="messageOrFormat"/> is <c>null</c>, empty, or entirely composed of whitespace.
+		/// </exception>
+		/// <returns>
+		///		The configured <see cref="ErrorRecord"/>.
+		/// </returns>
+		public static ErrorRecord NotImplemented(PSCmdlet cmdlet, string messageOrFormat = null, params object[] formatArguments)
+		{
+			if (cmdlet == null)
+				throw new ArgumentNullException(nameof(cmdlet));
+			
+            string message;
+			if (String.IsNullOrWhiteSpace(messageOrFormat))
+			{
+				message = String.Format("Cmdlet not implemented: {0}.",
+					cmdlet.MyInvocation.MyCommand.Name
+				);
+			}
+			else
+				message = String.Format(messageOrFormat, formatArguments);
+			
+			return new ErrorRecord(
+				new NotImplementedException(message),
+				errorId: "NotImplemented",
+				errorCategory: ErrorCategory.NotImplemented,
+				targetObject: null
+			);
+		}
+
+		/// <summary>
 		///		Create an <see cref="ErrorRecord"/> for when requested functionality is not implemented.
 		/// </summary>
 		/// <param name="messageOrFormat">

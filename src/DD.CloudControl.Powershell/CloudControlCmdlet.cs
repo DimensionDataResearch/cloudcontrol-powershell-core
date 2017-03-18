@@ -95,20 +95,36 @@ namespace DD.CloudControl.Powershell
         /// <returns>
         ///     The configured <see cref="ErrorRecord"/>.
         /// </returns>
-        protected void InvalidParameter(string parameterName, string messageOrFormat, params object[] formatArguments)
+        protected void WriteInvalidParameter(string parameterName, string messageOrFormat, params object[] formatArguments)
         {
             WriteError(
                 Errors.InvalidParameter(this, parameterName, messageOrFormat, formatArguments)
             );
         }
 
+		/// <summary>
+		/// 	Throw a terminating <see cref="ErrorRecord"/> that indicates a Cmdlet (or part of its functionality) is not currently implemented.
+		/// </summary>
+		/// <param name="messageOrFormat">
+		/// 	An optional error message or message-format specifier.
+		/// </param>
+		/// <param name="formatArguments">
+		/// 	Optional message format arguments.
+		/// </param>
+		protected void ThrowNotImplemented(string messageOrFormat = null, params object[] formatArguments)
+		{
+			ThrowTerminatingError(
+				Errors.NotImplemented(this, messageOrFormat, formatArguments)
+			);
+		}
+
         /// <summary>
-		///		Throw a terminating <see cref="ErrorRecord"/> to the pipline that indicates an unrecognised parameter set was encountered by the Cmdlet.
+		///		Throw a terminating <see cref="ErrorRecord"/> that indicates a Cmdlet was passed an unrecognised combination of parameters.
 		/// </summary>
 		/// <returns>
 		///		The configured <see cref="ErrorRecord"/>.
 		/// </returns>
-		protected void UnrecognizedParameterSet(PSCmdlet cmdlet)
+		protected void ThrowUnrecognizedParameterSet(PSCmdlet cmdlet)
         {
             ThrowTerminatingError(
                 Errors.UnrecognizedParameterSet(this)
