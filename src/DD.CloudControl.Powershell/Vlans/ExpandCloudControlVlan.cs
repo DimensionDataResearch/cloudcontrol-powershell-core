@@ -105,7 +105,7 @@ namespace DD.CloudControl.Powershell.Vlans
 
             if (IPv4PrefixSize >= vlan.PrivateIPv4Range.PrefixSize)
             {
-                InvalidParameter(nameof(IPv4PrefixSize),
+                WriteInvalidParameter(nameof(IPv4PrefixSize),
                     $"Cannot expand VLAN network from {existingNetwork} to {targetNetwork}. To expand the VLAN's IPv4 network, reduce its IPv4 prefix size."
                 );
 
