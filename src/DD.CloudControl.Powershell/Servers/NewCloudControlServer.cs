@@ -42,7 +42,7 @@ namespace DD.CloudControl.Powershell.Servers
 		/// <summary>
 		/// 	The Id of the VLAN to which the server's primary network adapter will be attached.
 		/// </summary>
-		[Parameter(ParameterSetName = "From VLAN", Mandatory = true, HelpMessage = "The Id of the VLAN to which the server's primary network adapter will be attached")]
+		[Parameter(ParameterSetName = "From VLAN Id", Mandatory = true, HelpMessage = "The Id of the VLAN to which the server's primary network adapter will be attached")]
 		public Guid VlanId { get; set; }
 
 		/// <summary>
@@ -67,6 +67,12 @@ namespace DD.CloudControl.Powershell.Servers
 		public VirtualMachineDisk[] Disks { get; set; }
 
 		/// <summary>
+		/// 	Wait for deployment to complete?
+		/// </summary>
+		[Parameter(HelpMessage = "Wait for deployment to complete")]
+		public SwitchParameter Wait { get; set; }
+
+		/// <summary>
         ///     Asynchronously perform Cmdlet processing.
         /// </summary>
         /// <param name="cancellationToken">
@@ -88,6 +94,22 @@ namespace DD.CloudControl.Powershell.Servers
 
 				return;
 			}
+
+			var deploymentConfiguration = new ServerDeploymentConfiguration
+			{
+				Name = Name,
+				Description = Description
+			};
+			deploymentConfiguration.Disks.AddRange(Disks);
+			deploymentConfiguration.Network.NetworkDomainId = NetworkDomainId;
+			
+			VirtualMachineNetworkAdapter primaryNetworkAdapter = deploymentConfiguration.Network.PrimaryNetworkAdapter;
+			if (ParameterSetName == "From VLAN Id")
+				primaryNetworkAdapter.VlanId = VlanId;
+			else if (ParameterSetName == "From IPv4 address")
+				primaryNetworkAdapter.PrivateIPv4Address = IPv4.ToString();
+
+			// TODO: Resolve and apply image.
 
 			ThrowNotImplemented();
 		}
