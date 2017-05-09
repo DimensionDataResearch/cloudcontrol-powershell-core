@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace DD.CloudControl.Powershell.Servers
 {
 	using Client;
+    using Client.Models.Common;
     using Client.Models.Network;
     using Client.Models.Server;
 
